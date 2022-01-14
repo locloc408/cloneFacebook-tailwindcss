@@ -1,5 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { fecthData } from "../../lib/axios/fetchClientData";
+import { StoryType, StoryContainer, postStoryText } from "../../type/Stories";
 interface initialStateType {
   textStyle: string;
   color: string;
@@ -12,9 +14,15 @@ const initialState: initialStateType = {
   color: "white",
   openChangeTextMenu: false,
   TextInput: "Bắt Đầu Nhập",
-  ImageStory:
-    "https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.16376-6/58262940_285817512345690_8722691640277336064_n.jpg?_nc_cat=1&ccb=1-5&_nc_sid=a86453&_nc_ohc=W28CDOne5mQAX9m2Odh&_nc_ht=scontent.fsgn2-5.fna&oh=c34930363c8b6cf281fb660c94d685f9&oe=61B3924B",
+  ImageStory: "/backgroundStories/1.jpg",
 };
+export const postTextStory = createAsyncThunk(
+  "post",
+
+  async (data: postStoryText) => {
+    await fecthData.postStories(data);
+  }
+);
 const Story = createSlice({
   name: "story",
   initialState,

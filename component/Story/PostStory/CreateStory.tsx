@@ -1,17 +1,19 @@
-import { IconButton } from "../IconButton/IconButton";
-import { Avatar } from "../Avatar/Avatar";
-import { Divide } from "../Divide/Divide";
-import { MenuFeatures } from "../dummyData/dummyMenuFeatures";
-import { MenuFeature } from "../Navbar/MenuFeature";
+import { IconButton } from "../../IconButton/IconButton";
+import { Avatar } from "../../Avatar/Avatar";
+import { Divide } from "../../Divide/Divide";
+import { MenuFeatures } from "../../dummyData/dummyMenuFeatures";
+import { MenuFeature } from "../../Navbar/MenuFeature";
 import { useState } from "react";
 import { useRouter } from "next/dist/client/router";
-import { Tooltip } from "../Tooltip/Tooltip";
+import { Tooltip } from "../../Tooltip/Tooltip";
 import { useDropzone } from "react-dropzone";
 import { useEffect } from "react";
 import { CreateStoryWithImage } from "./CreateStoryWithImage";
 import { CreateStoryWithText } from "./CreateStoryWithText";
 import { OptionToChoseStory } from "./OptionToChoseStory";
-import { ChangeParagraphStyle } from "./ChangeParagraphStyle";
+import { ChangeParagraphStyle } from "./ChangeTextStyle";
+import { fecthData } from "../../../lib/axios/fetchClientData";
+import {} from "../../../redux/slice/Stories";
 export const CreateStory = () => {
   const [files, setFiles] = useState<any[]>([]);
   const { getRootProps, getInputProps } = useDropzone({
@@ -34,7 +36,7 @@ export const CreateStory = () => {
   const handleCreateParamStory = () => {
     setIsCreatedParamStory(true);
   };
-  console.log(isCreatedParamStory);
+
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks
     files.forEach((file: any) => URL.revokeObjectURL(file.preview));
@@ -47,6 +49,9 @@ export const CreateStory = () => {
   const newMenuFeartures = MenuFeatures.filter(
     (menuFeature) => menuFeature.id !== 2
   );
+  const postStory = async () => {
+    // await fecthData.postStories();
+  };
   let component;
   if (files?.length > 0) {
     component = (
@@ -65,7 +70,7 @@ export const CreateStory = () => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <div className="h-screen bg-white shadow " style={{ width: "360px" }}>
         <div className="flex space-x-2 py-2 shadow">
           <div
@@ -147,11 +152,11 @@ export const CreateStory = () => {
                 src={
                   "http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png"
                 }
-                height={"h-14"}
-                width={"w-14"}
+                size="h-14 w-14"
                 active={false}
                 rounded={"rounded-full"}
                 shadow={"shadow"}
+                border="border-none"
               />
               <p className="font-medium text-base text-center ">Lộc Nguyễn</p>
             </div>
@@ -191,6 +196,7 @@ export const CreateStory = () => {
                     <button
                       className="bg-primary text-white text-center h-9 rounded-md relative group "
                       style={{ width: "198px" }}
+                      onClick={postStory}
                     >
                       Chia sẻ lên tin
                       <div
@@ -230,6 +236,7 @@ export const CreateStory = () => {
                     }
                   />
                   <Tooltip
+                    text=""
                     title={menuFeature.title}
                     translate={menuFeature.translate}
                     width={menuFeature.width}

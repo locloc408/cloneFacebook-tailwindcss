@@ -1,5 +1,5 @@
 import { FC } from "react";
-
+import { useRouter } from "next/dist/client/router";
 export const ListItemWithIcon = ({
   title,
   news,
@@ -7,6 +7,10 @@ export const ListItemWithIcon = ({
   size,
   bg,
   padding,
+  height,
+  margin,
+  url,
+  isActive,
 }: {
   title: string;
   news: boolean;
@@ -14,18 +18,30 @@ export const ListItemWithIcon = ({
   size: string;
   bg: string;
   padding: string;
+  height: string;
+  isActive: boolean;
+  margin: string;
+  url: string;
 }) => {
+  const router = useRouter();
   return (
     <div
+      onClick={() => {
+        router.push(url);
+      }}
       className={
-        "rounded-lg hover:bg-gray-200 flex h-10 cursor-pointer  items-center " +
-        padding
+        "rounded-lg flex items-center " +
+        padding +
+        " " +
+        height +
+        " " +
+        (isActive ? "bg-clicked" : "cursor-pointer hover:bg-gray-200")
       }
     >
       <div className={"ml-2 flex items-center " + size}>
         <div
           className={
-            "rounded-full h-7 w-7 flex items-center justify-center " + bg
+            "rounded-full h-full flex items-center justify-center w-full " + bg
           }
         >
           <Icon />
@@ -33,7 +49,9 @@ export const ListItemWithIcon = ({
       </div>
       <div
         className={
-          "ml-2 h-full items-center " + (news === false && "flex items-center")
+          "h-full items-center " +
+          (news === false && "flex items-center ") +
+          margin
         }
       >
         <p className="font-medium text-base">{title}</p>

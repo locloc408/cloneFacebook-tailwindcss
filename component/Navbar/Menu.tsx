@@ -43,10 +43,10 @@ export const Navbar = () => {
       <div className="flex justify-between items-center">
         <div className="hover:bg-gray-100 flex mr-2 cursor-pointer w-28 h-9 items-center justify-center rounded-full">
           <Avatar
+            border=""
             src="http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png"
             active={false}
-            height={"h-7"}
-            width={"w-7"}
+            size="h-7 w-7"
             rounded={"rounded-full"}
             shadow={"shadow"}
           />
@@ -86,3 +86,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+Navbar.whyDidYouRender = true;

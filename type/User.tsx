@@ -1,14 +1,13 @@
 import { ObjectId } from "mongoose";
-
+import { StoryType } from "./Stories";
 export interface UserType {
-  _id: ObjectId;
+  _id: string;
   img: string;
   name: string;
-  isOnline: boolean;
-  isFriend: boolean;
-  linktoProfile: String;
+  linktoProfile: string;
   sex: string;
   friendsId: string[];
   followerId: string[];
   followingId: string[];
+  email: string;
 }

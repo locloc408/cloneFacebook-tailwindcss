@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/dist/client/router";
-export const Story = ({ img }: { img: string }) => {
+export const StoryUpload = ({ img }: { img: string }) => {
   const router = useRouter();
   return (
     <div
@@ -9,20 +9,27 @@ export const Story = ({ img }: { img: string }) => {
       }}
     >
       <div
-        className=" w-28 cursor-pointer group rounded-2xl  overflow-hidden relative"
-        style={{ height: "198px" }}
+        className="cursor-pointer group rounded-2xl  overflow-hidden relative"
+        style={{ height: "190px" }}
       >
-        <div className="h-4/5 overflow-hidden">
+        <div className=" overflow-hidden relative" style={{ height: "150px" }}>
           <img
             src={img}
             className=" duration-700 group-hover:transform group-hover:scale-110 h-full"
           ></img>
+          <div
+            className="absolute inset-0 z-2"
+            style={{ height: "100%", backgroundColor: "rgba(0,0,0,0.1)" }}
+          ></div>
         </div>
         <div
-          className="absolute inset-0 w-28 group-hover:bg-overlay z-10 "
-          style={{ height: "198px" }}
+          className="absolute inset-0 group-hover:bg-overlay z-10 "
+          style={{ height: "190px" }}
         ></div>
-        <div className=" h-1/5 shadow-inner bg-white relative flex flex-col justify-end items-center ">
+        <div
+          className=" shadow-inner bg-white relative flex flex-col justify-end items-center "
+          style={{ height: "40px" }}
+        >
           <div className="font-semibold ">Tạo Tin</div>
           <div className="absolute rounded-full h-10 w-10 bg-primary border-white border-solid border-4  items-center dark:border-dark -top-6 left-1/2 grid place-items-center transform -translate-x-1/2">
             <svg viewBox="0 0 20 20" width="20" height="20" fill="white">

@@ -1,9 +1,9 @@
 import Draggable from "react-draggable";
 import React, { useState, useRef, useEffect } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { ChangeTextStyle } from "./ChangeTextStyle";
-import { useAppSelector } from "../../redux/hooks";
-import { Color, TextStyle } from "../../redux/slice/story";
+import { ChangeTextStyle } from "./ChangeImageStyle";
+import { useAppSelector } from "../../../redux/hooks";
+import { Color, TextStyle } from "../../../redux/slice/story";
 
 export const CreateStoryWithImage = ({
   files,
@@ -15,6 +15,7 @@ export const CreateStoryWithImage = ({
   const [activedrag, setActivedrag] = useState<boolean | null>(null);
   const [scale, setScale] = useState<number>(1);
   const [rotate, setRotate] = useState<number>(0);
+  const [value, setValue] = useState<number>(50);
   const color = useAppSelector(Color);
   const textStyle = useAppSelector(TextStyle);
 
@@ -22,7 +23,6 @@ export const CreateStoryWithImage = ({
   const rangeRef = useRef<HTMLInputElement>(null);
   const changeImageStyle = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
-  const [value, setValue] = useState<number>(50);
 
   const onStart = () => {};
   const onStop = () => {};

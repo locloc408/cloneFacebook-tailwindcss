@@ -1,4 +1,4 @@
-import { CreateStory } from "../component/Story/CreateStory";
+import { CreateStory } from "../component/Story/PostStory/CreateStory";
 const CreateStoryPage = () => {
   return (
     <div>

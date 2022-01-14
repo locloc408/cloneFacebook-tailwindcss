@@ -10,11 +10,11 @@ export const FriendRequest = () => {
       </div>
       <div className="flex items-center space-x-4 p-2 hover:bg-gray-200 rounded-lg cursor-pointer ">
         <Avatar
+          border=""
           rounded={"rounded-full"}
           src="http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png"
           active={false}
-          height={"h-12"}
-          width={"w-12"}
+          size="h-12 w-12"
           shadow="shadow"
         />
         <div className="w-full ">

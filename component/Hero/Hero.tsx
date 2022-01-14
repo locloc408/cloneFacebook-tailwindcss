@@ -1,15 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import { LeftSideMenuGroups } from "./LeftSideMenuGroups";
-import { LeftSideMenuType } from "../../type/LeftSideMenuGroups";
 import { LeftSideMenu } from "./LeftSideMenu";
 import { RightSideMenuFriends } from "./RightSideMenuFriends";
-import { IconButton } from "../IconButton/IconButton";
 import { FriendRequest } from "./FriendRequest";
-import { MainHero } from "./MainHero";
 import { Stories } from "./Stories";
 import { PostStatus } from "../Status/PostStatus";
 import { CreateMeet } from "../Meet/CreateMeet";
-export const Hero = () => {
+const hero = () => {
   return (
     <div className="flex justify-center h-screen bg-main">
       <div
@@ -21,7 +18,7 @@ export const Hero = () => {
         <LeftSideMenu />
         <LeftSideMenuGroups />
       </div>
-      <div className="lg:w-2/3 pt-16">
+      <div className="lg:w-2/3 pt-16 relative" style={{ width: "590px" }}>
         <Stories />
         <PostStatus />
         <CreateMeet />
@@ -39,3 +36,5 @@ export const Hero = () => {
     </div>
   );
 };
+
+export const Hero = memo(hero);

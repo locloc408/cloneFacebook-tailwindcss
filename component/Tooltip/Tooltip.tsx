@@ -2,10 +2,12 @@ export const Tooltip = ({
   title,
   translate,
   width,
+  text,
 }: {
   title: string;
   translate: string;
   width: string;
+  text: string;
 }) => {
   return (
     <div
@@ -16,7 +18,9 @@ export const Tooltip = ({
         width
       }
     >
-      <span className="text-white relative">{title}</span>
+      <span className={"text-white relative h-full w-full text-center " + text}>
+        {title}
+      </span>
     </div>
   );
 };

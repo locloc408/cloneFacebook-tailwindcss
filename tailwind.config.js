@@ -10,6 +10,7 @@ module.exports = {
         main: "rgb(240,242,245)",
         dark: "#242526",
         overlay: "rgba(0,0,0,0.1)",
+        clicked: "rgb(24,119,242 , 0.15)",
       },
     },
   },

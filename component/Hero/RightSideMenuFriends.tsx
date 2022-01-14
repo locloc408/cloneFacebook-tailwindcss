@@ -67,12 +67,18 @@ export const RightSideMenuFriends = () => {
       {OnlineFriends?.map((friend) => {
         return (
           <ListItemWithAvatatar
+            AvatarBorderColor=""
+            needClick={false}
+            clicked={false}
+            AvatarSize="h-6 w-6"
+            height="44px"
             key={nanoid()}
             src={friend.img}
-            news={false}
+            news={0}
             rouneded={"rounded-full"}
             active={true}
             title={friend.title}
+            isWatched={false}
           />
         );
       })}
