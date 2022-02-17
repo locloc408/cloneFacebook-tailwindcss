@@ -15,26 +15,25 @@ const storyDetail = ({
   pauseFlagMouse: React.MutableRefObject<boolean>;
   AllStories: StoryType[];
 }) => {
+  const [sortedStory, setSortedStory] = useState<sortedStoryType[]>([]);
   const UserId = useAppSelector(userId);
-  const [sortedStory, setSortedStory] = useState<sortedStoryType[]>();
   useEffect(() => {
-    const story = AllStories.find((story) => story.userId === UserId);
+    const story = AllStories.find((story) => story.userId._id === UserId);
     const sortedStory = story?.stories?.map((story, index) => {
       return {
         index: index,
         storyContainer: story,
       };
     });
-    setSortedStory(sortedStory);
+    setSortedStory(sortedStory as sortedStoryType[]);
   }, [UserId]);
-
   return (
     <div key={nanoid()}>
       <Slider
         pauseFlagMouse={pauseFlagMouse}
         Friends={Friends}
+        AllStories={AllStories}
         sortedStory={sortedStory as sortedStoryType[]}
-        userId={UserId}
       />
     </div>
   );

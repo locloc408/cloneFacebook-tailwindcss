@@ -13,32 +13,43 @@ export const StoriesContain = new Schema(
       type: String,
       default: "lowercase",
     },
-    commenterId: {
-      type: Array,
-      default: [],
-    },
-    likeIds: {
-      type: Array,
-      default: [],
-    },
-    viewerIds: {
-      type: Array,
-      default: [],
-    },
+    commenters: [
+      {
+        text: {
+          type: String,
+          default: "",
+        },
+        viewerId: {
+          type: Schema.Types.ObjectId,
+          ref: "Users",
+        },
+      },
+    ],
     style: {
       type: Object,
       default: {},
     },
-    viewerReaction: {
-      type: Array,
-      default: [],
-    },
+    viewerReaction: [
+      {
+        type: {
+          type: String,
+          default: "",
+        },
+        viewerId: {
+          type: Schema.Types.ObjectId,
+          ref: "Users",
+        },
+      },
+    ],
+    viewerIds: [String],
   },
   { timestamps: true }
 );
-
 export const Story = new Schema({
-  userId: "",
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "Users",
+  },
   stories: [StoriesContain],
 });
 

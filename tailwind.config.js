@@ -11,6 +11,8 @@ module.exports = {
         dark: "#242526",
         overlay: "rgba(0,0,0,0.1)",
         clicked: "rgb(24,119,242 , 0.15)",
+        love: "#ec407a",
+        angry: "#FF5349",
       },
     },
   },

@@ -5,38 +5,29 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { storyFriendIndex } from "../../../../redux/slice/Stories";
 import { StoryType } from "../../../../type/Stories";
 import { StoryFriendDetail } from "./StoryFriendDetail";
+import { nanoid } from "@reduxjs/toolkit";
 export const StoryListFriends = ({
   AllStories,
-  Friends,
+
   pauseFlagMouse,
 }: {
-  Friends: UserType[];
   pauseFlagMouse: React.MutableRefObject<boolean>;
   AllStories: StoryType[];
 }) => {
-  const [active, setActive] = useState(0);
-  const StoryFriendIndex = useAppSelector(storyFriendIndex);
-
-  useEffect(() => {
-    setActive(StoryFriendIndex);
-  }, [StoryFriendIndex]);
-
   return (
     <div>
       <div className="ml-3">
         <p className="text-base font-semibold ">Tất cả tin</p>
       </div>
       <div>
-        {Friends.map((friend, index) => {
+        {AllStories?.map((friend, index) => {
           return (
-            <div key={friend._id}>
+            <div key={nanoid()}>
               <StoryFriendDetail
-                setActive={setActive}
                 pauseFlagMouse={pauseFlagMouse}
                 AllStories={AllStories}
-                friend={friend}
+                friend={friend.userId}
                 index={index}
-                active={active}
               />
             </div>
           );

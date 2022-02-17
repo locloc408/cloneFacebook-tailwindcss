@@ -2,11 +2,11 @@ import { SearchBarMenu } from "./SearchBarMenu";
 import { Tab } from "../Tab/Tab";
 import { TabList } from "../dummyData/dummyTablistData";
 import { MenuFeatures } from "../dummyData/dummyMenuFeatures";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { MenuFeature } from "./MenuFeature";
 import { Avatar } from "../Avatar/Avatar";
 import { Tooltip } from "../Tooltip/Tooltip";
-export const Navbar = () => {
+const navbar = () => {
   const [tabId, setTabId] = useState(1);
   const handleTabClick = (tabId: number) => {
     setTabId(tabId);
@@ -35,6 +35,7 @@ export const Navbar = () => {
                 title={tab.title}
                 translate={"translate-x-0"}
                 width={"w-28"}
+                text=""
               />
             </div>
           );
@@ -68,6 +69,7 @@ export const Navbar = () => {
                 }
               />
               <Tooltip
+                text=""
                 title={menuFeature.title}
                 translate={menuFeature.translate}
                 width={menuFeature.width}
@@ -86,5 +88,4 @@ export const Navbar = () => {
     </nav>
   );
 };
-
-Navbar.whyDidYouRender = true;
+export const Navbar = memo(navbar);

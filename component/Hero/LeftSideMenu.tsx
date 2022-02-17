@@ -3,14 +3,13 @@ import { LeftSideMenuData } from "../dummyData/dummyLeftSideMenuData";
 import { ListItemWithIcon } from "../ListItemWithIcon/ListItemWithIcon";
 import { useState, useMemo, memo, useCallback } from "react";
 import { Divide } from "../Divide/Divide";
-export const LeftSideMenu = () => {
+const leftSideMenu = () => {
   const [isExpand, setIsExpand] = useState(false);
   const [expand, setExpand] = useState(5);
-  const List = useMemo(() => {
-    const list = LeftSideMenuData.slice(0, expand);
-    return list;
-  }, [expand]);
-  const handleChangeExpand = useCallback(() => {
+
+  const List = LeftSideMenuData.slice(0, expand);
+
+  const handleChangeExpand = () => {
     setIsExpand(!isExpand);
     if (isExpand === true) {
       setExpand(5);
@@ -18,7 +17,7 @@ export const LeftSideMenu = () => {
     if (isExpand === false) {
       setExpand(LeftSideMenuData.length);
     }
-  }, [expand]);
+  };
   return (
     <div className="mt-4">
       {List.map((menu) => {
@@ -93,3 +92,5 @@ export const LeftSideMenu = () => {
     </div>
   );
 };
+
+export const LeftSideMenu = memo(leftSideMenu);

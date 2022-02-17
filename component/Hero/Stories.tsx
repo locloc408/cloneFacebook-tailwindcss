@@ -1,4 +1,10 @@
-import React, { useEffect, useState, memo } from "react";
+import React, {
+  useEffect,
+  useState,
+  memo,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { StoryUpload } from "../Story/WatchStory/StoryUpload";
 import { StoryComp } from "../Story/WatchStory/StoryComp";
 import { fecthData } from "../../lib/axios/fetchClientData";
@@ -6,22 +12,10 @@ import { nanoid } from "@reduxjs/toolkit";
 import { LatestStory } from "../../type/Stories";
 import { sortStory } from "../../utils/utils";
 import { useRouter } from "next/dist/client/router";
-export const Stories = () => {
-  const [latestStories, setLatestStories] = useState<LatestStory[]>([]);
+const stories = ({ latestStories }: { latestStories: LatestStory[] }) => {
+  //get 4 stories for view home
+
   const router = useRouter();
-  useEffect(() => {
-    const getStories = async () => {
-      let stories = await fecthData.getStories();
-
-      // get latest Stories and user
-      const LatestStories = sortStory(stories);
-      //get 4 stories for view home
-      const news = LatestStories.slice(0, 4);
-
-      setLatestStories(news);
-    };
-    getStories();
-  }, []);
   return (
     <div
       className="pb-6 flex justify-center relative "
@@ -41,7 +35,7 @@ export const Stories = () => {
               height="190px"
               key={nanoid()}
               img={latestStory.last.ImageStory}
-              userId={latestStory.id}
+              user={latestStory.user}
               storyId={latestStory.last._id}
             />
           );
@@ -71,3 +65,4 @@ export const Stories = () => {
     </div>
   );
 };
+export const Stories = memo(stories);

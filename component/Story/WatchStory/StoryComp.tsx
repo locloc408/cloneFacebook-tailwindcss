@@ -5,47 +5,31 @@ import { Avatar } from "../../Avatar/Avatar";
 import { useRouter } from "next/dist/client/router";
 import { useAppDispatch } from "../../../redux/hooks";
 import { showStoryDetail } from "../../../redux/slice/Stories";
-import { StoryType } from "../../../type/Stories";
+import { sortStory } from "../../../utils/utils";
 export const StoryComp = ({
   img,
-  userId,
+  user,
   height,
   text,
   textStyle,
   storyId,
 }: {
   img: string;
-  userId: string;
+  user: UserType;
   height: string;
   text: string;
   textStyle: string;
   storyId: string;
 }) => {
-  const [User, setUser] = useState<UserType>();
-  const [story, setStory] = useState<StoryType>();
   const dispatch = useAppDispatch();
-  const getUser = async () => {
-    const user = await fecthData.getUserById(userId);
-    setUser(user);
-  };
-  const getStory = async () => {
-    const story = await fecthData.getStoryByUserId(userId);
-    setStory(story);
-  };
   const router = useRouter();
-  useEffect(() => {
-    getUser();
-    getStory();
-  }, [userId]);
-
   return (
     <div
       onClick={async () => {
-        router.push(`/stories/${userId}`);
-
+        router.push(`/stories/${user._id}`);
         dispatch(
           showStoryDetail({
-            userId: userId,
+            userId: user._id,
             storyFriendIndex: 0,
             storyId: storyId,
           })
@@ -54,8 +38,8 @@ export const StoryComp = ({
         //updated watched story in DB
         await fecthData.setWatchedStory({
           viewerId: "61b5cfe89f7f6d222bab9d67",
-          storyId: story?.stories[story.stories.length - 1]._id as string,
-          userId: userId,
+          storyId: storyId,
+          userId: user._id,
         });
       }}
     >
@@ -89,13 +73,13 @@ export const StoryComp = ({
             rounded={"rounded-full"}
             active={false}
             size="h-10 w-10"
-            src={User?.img as string}
+            src={user?.img as string}
             shadow={"shadow"}
             border="border-4 border-primary"
           />
         </div>
         <div className="absolute bottom-2 left-2 text-white font-normal">
-          {User?.name}
+          {user?.name}
         </div>
       </div>
     </div>

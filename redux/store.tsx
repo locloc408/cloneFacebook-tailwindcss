@@ -25,7 +25,7 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage: storage,
-  blacklist: ["ReactionReducer", "StatusReducer"],
+  blacklist: ["ReactionReducer", "StatusReducer", "ReactionReducer"],
 };
 const _persistedReducer = persistReducer(persistConfig, reducers);
 const store = configureStore({
@@ -34,15 +34,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: [
-          "your/action/type",
-          FLUSH,
-          REHYDRATE,
-          PAUSE,
-          PERSIST,
-          PURGE,
-          REGISTER,
-        ],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         // Ignore these field paths in all actions
         ignoredActionPaths: ["meta.arg", "payload.timestamp"],
         // Ignore these paths in the state

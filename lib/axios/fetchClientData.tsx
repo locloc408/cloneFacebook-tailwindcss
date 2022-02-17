@@ -1,12 +1,18 @@
 import axiosClient from "./ClientAxios";
 import { UserType } from "../../type/User";
+
 import {
   postStoryText,
-  StoryContainer,
   StoryType,
   StoryViewerReact,
   WatchedStoryType,
 } from "../../type/Stories";
+import {
+  StatusPostType,
+  StatusResponseList,
+  UserReactionPost,
+} from "../../type/Status";
+import { PostComment } from "../../type/Comment";
 export const fecthData = {
   getFriendsLists: async () => {
     const url = "/RightSideMenuFriends";
@@ -44,6 +50,27 @@ export const fecthData = {
   setWatchedStory: async (data: WatchedStoryType) => {
     const url = "/Stories/" + data.userId + "/watched";
     const res = await axiosClient.put(url, data);
+    return res;
+  },
+  postStatus: async (userId: string, data: StatusPostType) => {
+    const url = "/Status/" + userId;
+    const res: StatusResponseList = await axiosClient.post(url, data);
+    return res;
+  },
+  getStatuses: async (userId: string) => {
+    const url = "/Status/" + userId;
+    const res: StatusResponseList[] = await axiosClient.get(url);
+    return res;
+  },
+
+  postStatusReaction: async (userId: string, data: UserReactionPost) => {
+    const url = "/Status/Reaction/" + userId;
+    const res = await axiosClient.post(url, data);
+    return res;
+  },
+  postComment: async (data: PostComment) => {
+    const url = "/Comment";
+    const res = await axiosClient.post(url, data);
     return res;
   },
 };

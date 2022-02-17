@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import { storyReaction } from "../../../redux/slice/Reaction";
-import { StoryAction } from "./StoryAction";
 import { nanoid } from "@reduxjs/toolkit";
 import { storyFriendIndex } from "../../../redux/slice/Stories";
 import { sortedStoryType } from "../../../type/Stories";
@@ -17,9 +16,9 @@ export const StoryReaction = ({
   const StoryFriendIndex = useAppSelector(storyFriendIndex);
   const [reaction, setReaction] = useState(storyReactions);
   useEffect(() => {
-    if (StoryReaction.length > 5) {
+    if (storyReactions.length > 4) {
       setReaction(
-        storyReactions.slice(StoryAction.length - 6, StoryReaction.length)
+        storyReactions.slice(storyReactions.length - 4, storyReactions.length)
       );
     } else {
       setReaction(storyReactions);

@@ -14,6 +14,7 @@ import { Tooltip } from "../../component/Tooltip/Tooltip";
 import { StoryDetail } from "../../component/Story/WatchStory/StoryDetail";
 import { StoryEmoji } from "../../component/Story/WatchStory/StoryEmoji";
 import { StoryResponse } from "../../component/Story/WatchStory/StoryResponse";
+import mongoose from "mongoose";
 const StoryDetailPage = ({
   Friends,
   AllStories,
@@ -172,7 +173,6 @@ const StoryDetailPage = ({
           <div className="overflow-auto h-96">
             <StoryListFriends
               pauseFlagMouse={pauseFlagMouse}
-              Friends={Friends}
               AllStories={AllStories}
             />
           </div>
@@ -201,6 +201,7 @@ const StoryDetailPage = ({
                     title={menuFeature.title}
                     translate={menuFeature.translate}
                     width={menuFeature.width}
+                    text=""
                   />
                   <div
                     className={
@@ -236,31 +237,35 @@ export default StoryDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async (conetxt) => {
   const { userId } = conetxt.query;
-  const storyOfFriend = await Story.findOne({ userId: userId });
-  const stories = await Story.find();
+  const storyOfFriend = await Story.findOne({
+    userId: new mongoose.Types.ObjectId(userId as string),
+  }).populate("userId");
 
   //get another friends then sort by date created
-  const AnotherFriends = stories.filter((story) => story.userId !== userId);
 
   const isNotWatch = await Story.find({
     stories: {
-      $not: {
-        $elemMatch: {
-          viewerIds: "61b5cfe89f7f6d222bab9d67",
+      $nin: {
+        viewerReaction: {
+          $elemMatch: {
+            viewerId: "61b5cfe89f7f6d222bab9d67",
+          },
         },
       },
     },
-  });
-  const isNotWatched = isNotWatch.filter((story) => story.userId != userId);
-  // const la = isNotWatch.filter(())
+  }).populate("userId");
   const isWatch = await Story.find({
     stories: {
-      $elemMatch: {
-        viewerIds: "61b5cfe89f7f6d222bab9d67",
+      viewerReaction: {
+        $elemMatch: {
+          viewerId: "61b5cfe89f7f6d222bab9d67",
+        },
       },
     },
-  });
-  const filter = isWatch.filter((story) => story.userId != userId);
+  }).populate("userId");
+
+  const isNotWatched = isNotWatch.filter((story) => story.userId._id != userId);
+  const filter = isWatch.filter((story) => story.userId._id != userId);
 
   //stories that is not watched all (example : got 2 stories but got 1 is watched )
   const isWatchAllStory = filter.filter((x) =>
@@ -293,7 +298,7 @@ export const getServerSideProps: GetServerSideProps = async (conetxt) => {
   );
 
   const Friends = JSON.parse(JSON.stringify(friends));
-
+  console.log(storyOfFriend);
   return {
     props: {
       Friends,

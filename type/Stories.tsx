@@ -1,21 +1,23 @@
+import { ObjectId } from "mongoose";
+import { commenters } from "./Comment";
+import { UserType } from "./User";
 export interface StoryContainer {
   ImageStory: string;
   textInput: string;
   textStyle: string;
-  commenterId: string[];
-  likeIds: StoryViewerReact[];
-  viewerIds: string[];
   viewerReaction: StoryReact[];
+  viewerIds: String[];
+  commenters: commenters;
   style: object;
   userId: string;
   _id: string;
 }
 export interface StoryType {
-  userId: string;
+  userId: UserType;
   stories: StoryContainer[];
 }
 export interface LatestStory {
-  id: string;
+  user: UserType;
   last: StoryContainer;
   index: number;
 }

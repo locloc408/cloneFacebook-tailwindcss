@@ -6,7 +6,7 @@ import Story from "../../lib/mongoose/model/Stories";
 import { sortStory } from "../../utils/utils";
 import { LatestStory } from "../../type/Stories";
 import { StoryComp } from "../../component/Story/WatchStory/StoryComp";
-
+import { nanoid } from "@reduxjs/toolkit";
 const StoriesListPage = ({ latesStories }: { latesStories: LatestStory[] }) => {
   return (
     <div>
@@ -88,7 +88,7 @@ const StoriesListPage = ({ latesStories }: { latesStories: LatestStory[] }) => {
           </div>
         </div>
         <div
-          className="bg-gray-100  w-3/4 h-full"
+          className="bg-gray-100  w-3/4 h-screen"
           style={{ marginLeft: "340px" }}
         >
           <div style={{ width: "936px" }}>
@@ -109,16 +109,16 @@ const StoriesListPage = ({ latesStories }: { latesStories: LatestStory[] }) => {
 
               <div>
                 <div className="grid grid-cols-4 gap-1">
-                  {latesStories?.map((story) => {
+                  {latesStories?.map((latestStory) => {
                     return (
                       <StoryComp
-                        textStyle={story.last.textStyle}
-                        text={story.last.textInput}
-                        height="366px"
-                        key={story.index}
-                        userId={story.id}
-                        img={story.last.ImageStory}
-                        storyId={story.last._id}
+                        text={latestStory.last.textInput}
+                        textStyle={latestStory.last.textStyle}
+                        height="190px"
+                        key={nanoid()}
+                        img={latestStory.last.ImageStory}
+                        user={latestStory.user}
+                        storyId={latestStory.last._id}
                       />
                     );
                   })}
@@ -135,7 +135,7 @@ const StoriesListPage = ({ latesStories }: { latesStories: LatestStory[] }) => {
 export default StoriesListPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const stories = await Story.find();
+  const stories = await Story.find().populate("userId");
   const Stories = JSON.parse(JSON.stringify(stories));
   const latesStories = sortStory(Stories);
 

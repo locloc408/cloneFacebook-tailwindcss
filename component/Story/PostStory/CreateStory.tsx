@@ -12,7 +12,6 @@ import { CreateStoryWithImage } from "./CreateStoryWithImage";
 import { CreateStoryWithText } from "./CreateStoryWithText";
 import { OptionToChoseStory } from "./OptionToChoseStory";
 import { ChangeParagraphStyle } from "./ChangeTextStyle";
-import { fecthData } from "../../../lib/axios/fetchClientData";
 import {} from "../../../redux/slice/Stories";
 export const CreateStory = () => {
   const [files, setFiles] = useState<any[]>([]);
@@ -49,7 +48,7 @@ export const CreateStory = () => {
   const newMenuFeartures = MenuFeatures.filter(
     (menuFeature) => menuFeature.id !== 2
   );
-  const postStory = async () => {
+  const postStory = () => {
     // await fecthData.postStories();
   };
   let component;

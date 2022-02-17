@@ -6,6 +6,7 @@ export const PostIcon = [
     title: "Ảnh/Video",
     width: "w-13",
     translate: "-translate-y-20 -translate-x-2",
+    id: 1,
   },
   {
     url: "https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/KzmUzY1_3Zb.png",
@@ -14,6 +15,7 @@ export const PostIcon = [
     title: "Gắn Thẻ Người Khác",
     width: "w-36",
     translate: "-translate-y-20 -translate-x-12",
+    id: 2,
   },
   {
     url: "https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/KzmUzY1_3Zb.png",
@@ -22,6 +24,7 @@ export const PostIcon = [
     title: "Cảm Xúc/Hoạt động",
     width: "w-36",
     translate: "-translate-y-20 -translate-x-12",
+    id: 3,
   },
   {
     url: "https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/HyeXO0sd7uk.png",
@@ -30,6 +33,7 @@ export const PostIcon = [
     title: "Check-in",
     width: "w-20",
     translate: "-translate-y-20 -translate-x-4",
+    id: 4,
   },
   {
     url: "https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/lgxgxxU6HJr.png",
@@ -38,6 +42,7 @@ export const PostIcon = [
     title: "Tổ Chức buổi H&Đ",
     width: "w-36",
     translate: "-translate-y-20 -translate-x-12",
+    id: 5,
   },
   {
     url: "https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/KzmUzY1_3Zb.png",
@@ -46,5 +51,6 @@ export const PostIcon = [
     title: "Xem Thêm",
     width: "w-20",
     translate: "-translate-y-20 -translate-x-4",
+    id: 6,
   },
 ];

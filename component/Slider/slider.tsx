@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { sortedStoryType } from "../../type/Stories";
+import { sortedStoryType, StoryType } from "../../type/Stories";
 import {
   storyFriendIndex,
   showStoryDetail,
@@ -15,63 +15,79 @@ import { StoryAction } from "../Story/WatchStory/StoryAction";
 import { Avatar } from "../Avatar/Avatar";
 import { fecthData } from "../../lib/axios/fetchClientData";
 import { StoryReaction } from "../Story/WatchStory/StoryReaction";
+import { userId } from "../../redux/slice/Stories";
 const slider = ({
   pauseFlagMouse,
   Friends,
+  AllStories,
   sortedStory,
-  userId,
 }: {
-  sortedStory: sortedStoryType[];
-  userId: string;
   Friends: UserType[];
   pauseFlagMouse: React.MutableRefObject<boolean>;
+  AllStories: StoryType[];
+  sortedStory: sortedStoryType[];
 }) => {
-  console.log(pauseFlagMouse.current);
   const StoryId = useAppSelector(storyId);
-  const [current, setCurrent] = useState(0);
+  const UserId = useAppSelector(userId);
+  const [current, setCurrent] = useState<number>(0);
   const dispatch = useAppDispatch();
   const StoryFriendIndex = useAppSelector(storyFriendIndex);
-
-  const storyTimeOutRef = useRef<any>(null);
-
   const [firstFriend, setFirst] = useState(
     StoryFriendIndex === 0 ? true : false
   );
+  const storyTimeOutRef = useRef<any>(null);
+
   const [lastFriend, setLast] = useState(
-    StoryFriendIndex === Friends.length - 1 ? true : false
+    StoryFriendIndex === Friends?.length - 1 ? true : false
   );
+
   const findIndex = () => {
     const find = sortedStory?.find(
       (story) => story.storyContainer._id === StoryId
     );
-    const index = sortedStory?.indexOf(find as sortedStoryType);
+    let index = sortedStory?.indexOf(find as sortedStoryType);
+    if (index === -1) {
+      return (index = 0);
+    }
     return index;
   };
 
   const Next = useCallback(() => {
     pauseFlagMouse.current = false;
     if (lastFriend === false) {
+      console.log("last");
       setCurrent((prev) => {
         if (current < sortedStory?.length - 1) {
           //story the next storyId
           dispatch(setStoryId(sortedStory[current + 1]?.storyContainer._id));
+          console.log("1");
           return prev + 1;
         } else {
-          const prev = 0;
           const friend = Friends[StoryFriendIndex + 1];
+          console.log({
+            userId: friend?._id,
+            storyFriendIndex: StoryFriendIndex + 1,
+            storyId: AllStories.find(
+              (stories) => stories.userId._id === friend._id
+            )?.stories[0]._id as string,
+            sortedStory,
+          });
           dispatch(
             showStoryDetail({
               userId: friend?._id,
               storyFriendIndex: StoryFriendIndex + 1,
-              storyId: sortedStory[current + 1]?.storyContainer._id,
+              storyId: AllStories.find(
+                (stories) => stories.userId._id === friend._id
+              )?.stories[0]._id as string,
             })
           );
+          const prev = 0;
           return prev;
         }
       });
     } else {
       if (current === sortedStory.length - 1) {
-        return true;
+        console.log("ka");
       } else {
         setCurrent((prev) => {
           if (current < sortedStory?.length - 1) {
@@ -84,7 +100,9 @@ const slider = ({
               showStoryDetail({
                 userId: friend?._id,
                 storyFriendIndex: StoryFriendIndex + 1,
-                storyId: sortedStory[current + 1]?.storyContainer._id,
+                storyId: AllStories.find(
+                  (stories) => stories.userId._id === friend._id
+                )?.stories[0]._id as string,
               })
             );
             return prev;
@@ -97,7 +115,7 @@ const slider = ({
   const updatedWatchStory = useCallback(async () => {
     await fecthData.setWatchedStory({
       viewerId: "61b5cfe89f7f6d222bab9d67",
-      userId: userId,
+      userId: UserId,
       storyId: sortedStory[current]?.storyContainer._id,
     });
   }, [current]);
@@ -105,7 +123,7 @@ const slider = ({
   useEffect(() => {
     if (
       sortedStory &&
-      !sortedStory[current]?.storyContainer.viewerIds.includes(userId)
+      !sortedStory[current]?.storyContainer.viewerIds.includes(UserId)
     ) {
       updatedWatchStory();
     }
@@ -131,22 +149,26 @@ const slider = ({
 
   useEffect(() => {
     setCurrent(findIndex());
-  }, [StoryId, userId, StoryFriendIndex]);
+  }, [StoryId, StoryFriendIndex]);
 
   const Back = useCallback(() => {
     pauseFlagMouse.current = false;
     setCurrent((prev) => {
       if (current > 0) {
-        dispatch(setStoryId(sortedStory[current - 1]?.storyContainer._id));
+        console.log(sortedStory[sortedStory.length - 1]?.storyContainer._id);
+        dispatch(
+          setStoryId(sortedStory[sortedStory.length - 1]?.storyContainer._id)
+        );
         return prev - 1;
       } else {
         const prev = 0;
         const friend = Friends[StoryFriendIndex - 1];
+        const stories = AllStories.find((story) => story.userId._id === UserId);
         dispatch(
           showStoryDetail({
             userId: friend?._id,
             storyFriendIndex: StoryFriendIndex - 1,
-            storyId: sortedStory[current - 1]?.storyContainer._id,
+            storyId: stories?.stories[stories.stories.length - 1]._id as string,
           })
         );
         return prev;

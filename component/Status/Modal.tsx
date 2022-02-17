@@ -1,33 +1,92 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Divide } from "../Divide/Divide";
 import { IconButton } from "../IconButton/IconButton";
-import { changeModal, ShowInputZone } from "../../redux/slice/status";
+import {
+  changeModal,
+  ShowInputZone,
+  setStatusResponseItems,
+} from "../../redux/slice/status";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Avatar } from "../Avatar/Avatar";
 import { PostIcon } from "../dummyData/dummySpritePost";
 import { WrapSpriteIcon } from "./WrapSpriteIcon";
 import Picker from "emoji-picker-react";
 import { useClickOutSide, usePreviewImage } from "../../utils/utils";
-
+import { ImageZone } from "./ImageZone";
+import axios from "axios";
+import { fecthData } from "../../lib/axios/fetchClientData";
+import { nanoid } from "@reduxjs/toolkit";
+import useSWR from "swr";
 const Modal = () => {
   const dispatch = useAppDispatch();
   const ChangeModal = () => {
     dispatch(changeModal(false));
   };
-  const [value, setValue] = useState("");
+
+  const [textInput, setTextInput] = useState("");
   const inputRef = useRef<any>(null);
   const ref = useRef<any>(null);
   const showInputZone = useAppSelector(ShowInputZone);
-  console.log(showInputZone);
   const [openEmoji, setOpenEmoji] = useState(false);
   useClickOutSide(ref, setOpenEmoji);
   const onEmojiClick = (e: any, emojiObject: any) => {
     const cursor = inputRef.current.selectionStart;
     const text =
-      value.slice(0, cursor) + emojiObject.emoji + value.slice(cursor);
-    setValue(text);
+      textInput.slice(0, cursor) + emojiObject.emoji + textInput.slice(cursor);
+    setTextInput(text);
   };
-  const { files, getRootProps, getInputProps } = usePreviewImage();
+  const { files, getRootProps, getInputProps, setFiles } = usePreviewImage();
+
+  const uploadImage = async () => {
+    // Tạo một form data chứa dữ liệu gửi lên
+    if (files.length > 0) {
+      const formData = new FormData();
+      formData.append("file", files[0]);
+      formData.append("upload_preset", "my upload");
+
+      axios
+        .post(
+          "https://api.cloudinary.com/v1_1/dlq2u39zm/image/upload",
+          formData
+        )
+        .then((response) => {
+          fecthData
+            .postStatus("61b5cfe89f7f6d222bab9d67", {
+              ImageUrl: response.data.url,
+              textInput: textInput,
+              statusId: "",
+            })
+            .then((res) => {
+              console.log(res);
+              dispatch(changeModal(false));
+              dispatch(
+                setStatusResponseItems({
+                  ImageUrl: response.data.url,
+                  textInput: textInput,
+                  statusId: res._id,
+                })
+              );
+            });
+        });
+    } else {
+      fecthData
+        .postStatus("61b5cfe89f7f6d222bab9d67", {
+          ImageUrl: "",
+          textInput: textInput,
+          statusId: "",
+        })
+        .then((res) => {
+          dispatch(changeModal(false));
+          dispatch(
+            setStatusResponseItems({
+              ImageUrl: "",
+              textInput: textInput,
+              statusId: res._id,
+            })
+          );
+        });
+    }
+  };
   return (
     <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center z-50">
       <div
@@ -83,25 +142,62 @@ const Modal = () => {
             <input
               className="focus:border-transparent focus:ring-transparent border-none w-full text-xl mt-2 focus:outline-none"
               placeholder="Nguyễn ơi , bạn đang nghĩ gì thế?"
-              value={value}
+              value={textInput}
               ref={inputRef}
               onChange={(e) => {
-                setValue(e.target.value);
+                setTextInput(e.target.value);
               }}
             />
             {showInputZone === true && (
-              <div className="overflow-auto mt-3" style={{ height: "200px" }}>
-                <div {...getRootProps({ className: "dropzone" })}>
-                  <input {...getInputProps()} />
+              <div>
+                {files.length === 0 ? (
                   <div
-                    className="rounded-md w-full border border-gray-300 "
+                    className="overflow-auto mt-3"
                     style={{ height: "200px" }}
                   >
-                    <div className="p-2 h-full">
-                      <div className=" bg-gray-200 opacity-60 hover:opacity-100 h-full cursor-pointer"></div>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <div
+                        className="rounded-md w-full border border-gray-300 "
+                        style={{ height: "200px" }}
+                      >
+                        <div className="p-2 h-full relative">
+                          <div className="  h-full cursor-pointer flex justify-center items-center">
+                            <div className="flex items-center justify-center flex-col z-50">
+                              <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                <i
+                                  style={{
+                                    background:
+                                      "url(https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/5B7Xjn6goQW.png)",
+                                    backgroundRepeat: "no-repeat",
+                                    display: "inline-block",
+                                    backgroundSize: "auto",
+                                    width: "20px",
+                                    height: "20px",
+                                    backgroundPosition: "-25px -271px",
+                                  }}
+                                ></i>
+                              </div>
+
+                              <div className="font-semibold text-base">
+                                Thêm Ảnh/Video
+                              </div>
+                              <div className="text-sm">Hoặc kéo và thả</div>
+                            </div>
+                          </div>
+                          <div className="absolute inset-0  bg-gray-200 opacity-60 hover:opacity-100 cursor-pointer"></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <ImageZone
+                    files={files}
+                    setFiles={setFiles}
+                    getRootProps={getRootProps}
+                    getInputProps={getInputProps}
+                  />
+                )}
               </div>
             )}
           </div>
@@ -152,17 +248,19 @@ const Modal = () => {
             <div className="p-2 flex items-center h-full justify-between">
               <div className="text-sm font-semibold">Thêm Vào Bài Viết</div>
               <div className="flex space-x-1">
-                {PostIcon.map((icon, index) => (
-                  <WrapSpriteIcon
-                    index={index}
-                    bg={icon.bg}
-                    title={icon.title}
-                    url={icon.url}
-                    position={icon.position}
-                    width={icon.width}
-                    translate={icon.translate}
-                    text={"text-xs"}
-                  />
+                {PostIcon.map((icon) => (
+                  <div key={nanoid()}>
+                    <WrapSpriteIcon
+                      id={icon.id}
+                      bg={icon.bg}
+                      title={icon.title}
+                      url={icon.url}
+                      position={icon.position}
+                      width={icon.width}
+                      translate={icon.translate}
+                      text={"text-xs"}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -177,15 +275,16 @@ const Modal = () => {
           <button
             className={
               "h-full w-full " +
-              ((value?.length as number) > 0
+              ((textInput?.length as number) > 0
                 ? "bg-primary text-white rounded-md"
                 : "")
             }
-            disabled={(value?.length as number) > 0 ? false : true}
+            disabled={(textInput?.length as number) > 0 ? false : true}
+            onClick={uploadImage}
           >
             Đăng
           </button>
-          {value?.length === 0 && (
+          {textInput?.length === 0 && (
             <div
               className="absolute w-full h-full inset-0 opacity-60 cursor-not-allowed"
               style={{ backgroundColor: "rgba(228 , 230 , 235)" }}
