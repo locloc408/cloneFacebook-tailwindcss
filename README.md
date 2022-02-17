@@ -5,7 +5,7 @@ npm run dev
 yarn dev
 
 
-##About Me 
+## About Me : 
 My Name is Nguyễn Đức Lộc and i'm having <1 year experiment in making website!!!
 
 ##My Skills : 
