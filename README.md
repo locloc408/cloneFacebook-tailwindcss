@@ -19,3 +19,5 @@ My Name is Nguyễn Đức Lộc and i'm having <1 year experiment in making web
 ## Some Popular React library :
 <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white"> 
 
+## A liitle bit backend :
+
