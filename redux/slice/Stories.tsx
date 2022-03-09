@@ -33,7 +33,7 @@ const initialState: InitialState = {
 export const postStoryReaction = createAsyncThunk(
   "postStatus",
   async (data: StoryViewerReact) => {
-    const res = await fecthData.postReaction(data);
+    const res = await fecthData.postStoryReaction(data);
     return res;
   }
 );

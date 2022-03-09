@@ -1,160 +1,57 @@
 import { nanoid } from "@reduxjs/toolkit";
-import React, { useEffect, useRef, useState } from "react";
-import { fecthData } from "../../lib/axios/fetchClientData";
-import { UserReaction } from "../../type/Status";
+import React, { useRef } from "react";
+import { UserReaction, UserReactionPost } from "../../type/Status";
 import { UserType } from "../../type/User";
 import { Avatar } from "../Avatar/Avatar";
 import { Divide } from "../Divide/Divide";
-import { Emoji } from "../dummyData/emoji";
-import { getUnique } from "../../utils/utils";
+import PostComment from "../Comment/PostComment";
+import { CommentList } from "../Comment/CommentList";
+import { useReaction } from "../Reaction/useReaction";
+import { ReactionMenu } from "../Reaction/ReactionMenu";
+import { fecthData } from "../../lib/axios/fetchClientData";
 interface StatusItemsType {
-  user: UserType;
+  statusUser: UserType;
   statusContent: string;
   statusImage: string;
   statusId: string;
   statusReactionRes: UserReaction[];
 }
-interface ReactionStatus {
-  content: string;
-  reactionType: string;
-  color: string;
-  font: string;
-}
 export const StatusItems = ({
-  user,
+  statusUser,
   statusContent,
   statusImage,
   statusId,
   statusReactionRes,
 }: StatusItemsType) => {
-  const [EmojiFlag, setEmojiFlag] = useState(false);
-  const [likeFlag, setLikeFlag] = useState<boolean>(false);
-  const [statusReaction, setStatusReaction] = useState<ReactionStatus>({
-    reactionType: "normalLike",
-    content: "Thích",
-    color: "",
-    font: "",
+  const ref = useRef<HTMLInputElement | null>(null);
+  const {
+    EmojiFlag,
+    uniqueReactions,
+    statusesReactionQuantity,
+    statusReaction,
+    mouseEnter,
+    mouseLeave,
+    handleOnClickLike,
+    handleOnClickReaction,
+  } = useReaction({
+    caseReactionRes: statusReactionRes,
+    caseId: statusId,
+    caseUserId: statusUser._id,
+    caseFetch: "status",
   });
-  const ref = useRef<HTMLInputElement>(null);
-  const [statusesReactionRes, setStatusesReactionRes] = useState<any[]>(() =>
-    getUnique(statusReactionRes, "reactionType")
-  );
-  const [statusesReactionQuantity, setStatusesReactionQuantity] =
-    useState<number>(statusReactionRes?.length);
-  const flag = useRef<any>(null);
-  const pause = useRef<boolean>(false);
-
-  const mouseEnter = () => {
-    let time = 0;
-    clearInterval(flag.current);
-    pause.current = false;
-    flag.current = setInterval(() => {
-      if (pause.current === false) {
-        time++;
-        if (time === 10) {
-          time = 0;
-          setEmojiFlag(true);
-          clearInterval(flag.current);
-        }
-      } else {
-        clearInterval(flag.current);
-      }
-    }, 100);
-  };
-  const mouseLeave = () => {
-    clearInterval(flag.current);
-    let time = 0;
-    flag.current = setInterval(() => {
-      if (pause.current === false) {
-        time++;
-        if (time === 10) {
-          time = 0;
-          setEmojiFlag(false);
-          clearInterval(flag.current);
-        }
-      } else {
-        clearInterval(flag.current);
-      }
-    }, 100);
-  };
-  const handleOnClickReaction = async (
-    type: string,
-    content: string,
-    color: string
-  ) => {
-    pause.current = true;
-    setEmojiFlag(false);
-    setLikeFlag(true);
-    if (statusesReactionRes.includes(type) === false) {
-      setStatusesReactionRes([...statusesReactionRes, type]);
-    }
-    setStatusReaction({
-      reactionType: type,
-      content: content,
-      color: color,
-      font: "font-medium",
-    });
-    setStatusesReactionQuantity(statusesReactionQuantity + 1);
-    await fecthData.postStatusReaction(user._id, {
-      userId: "61bb16f29e4e9229d13fde15",
-      reactionType: type,
-      statusId: statusId,
-    });
-  };
-
-  const handleOnClickLike = async () => {
-    if (likeFlag === false) {
-      setLikeFlag(true);
-      if (!statusesReactionRes.includes("like")) {
-        setStatusesReactionRes([...statusesReactionRes, "like"]);
-      }
-      setStatusReaction({
-        reactionType: "like",
-        content: "Thích",
-        color: "-primary",
-        font: "font-medium",
-      });
-      setStatusesReactionQuantity(statusesReactionQuantity + 1);
-      await fecthData.postStatusReaction("61b74737b003e561f956b6d7", {
-        userId: "61bb16f29e4e9229d13fde15",
-        reactionType: "like",
-        statusId: statusId,
-      });
-    } else {
-      setLikeFlag(false);
-      setStatusesReactionRes(
-        statusesReactionRes.filter(
-          (reaction) => reaction !== statusReaction.reactionType
-        )
-      );
-      setStatusReaction({
-        reactionType: "normalLike",
-        content: "Thích",
-        color: "",
-        font: "",
-      });
-      setStatusesReactionQuantity(statusesReactionQuantity - 1);
-      await fecthData.postStatusReaction("61b74737b003e561f956b6d7", {
-        userId: "61bb16f29e4e9229d13fde15",
-        reactionType: "normalLike",
-        statusId: statusId,
-      });
-    }
-  };
-
   return (
     <div className="pt-3">
       <div>
         <div className="flex ml-4 space-x-1">
           <Avatar
-            src={user?.img as string}
+            src={statusUser?.img as string}
             active={false}
             rounded="rounded-full"
             shadow=""
             border="border"
             size="h-10 w-10"
           />
-          <div className="text-md font-semibold">{user?.name}</div>
+          <div className="text-md font-semibold">{statusUser?.name}</div>
         </div>
       </div>
       <div className="">
@@ -165,21 +62,23 @@ export const StatusItems = ({
           )}
         </div>
       </div>
-      <div className="mx-3">
+      <div className="mx-3 ">
         <div className="flex space-x-3">
           <div className="flex">
-            {statusesReactionRes.map((reaction) => {
-              return (
-                <div key={nanoid()}>
-                  <img
-                    style={{
-                      height: "100%",
-                    }}
-                    src={`./emoji/${reaction}.svg`}
-                    width="20px"
-                  />
-                </div>
-              );
+            {uniqueReactions.map((reaction) => {
+              if (reaction !== "") {
+                return (
+                  <div key={nanoid()}>
+                    <img
+                      style={{
+                        height: "100%",
+                      }}
+                      src={`./emoji/${reaction}.svg`}
+                      width="20px"
+                    />
+                  </div>
+                );
+              }
             })}
           </div>
           <div
@@ -203,45 +102,26 @@ export const StatusItems = ({
           >
             <div className="flex space-x-1 ">
               <img
-                src={`./emoji/${statusReaction.reactionType}.svg`}
+                src={`./emoji/${
+                  statusReaction ? statusReaction.type : "unLike"
+                }.svg`}
                 height={"20px"}
                 width={"20px"}
               />
               <div
-                className={`text${statusReaction.color} ${statusReaction.font}`}
+                className={`text${statusReaction?.color} ${statusReaction?.font}`}
               >
-                {statusReaction.content}
+                {statusReaction ? statusReaction.content : "Thích"}
               </div>
             </div>
           </div>
           {EmojiFlag === true && (
-            <div className="absolute flex -top-12 space-x-1 bg-white rounded-full border-2 border-gray-200 h-12 z-50">
-              {Emoji.map((emoji) => {
-                return (
-                  <div
-                    key={emoji.id}
-                    className="hover:scale-125 cursor-pointer transform"
-                    onClick={() =>
-                      handleOnClickReaction(
-                        emoji.type,
-                        emoji.content,
-                        emoji.color
-                      )
-                    }
-                    onMouseEnter={mouseEnter}
-                    onMouseLeave={mouseEnter}
-                  >
-                    <img
-                      style={{
-                        height: "100%",
-                      }}
-                      src={`/emoji/${emoji?.type}.svg`}
-                      width="35px"
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            <ReactionMenu
+              top={"-top-12"}
+              handleOnClickReaction={handleOnClickReaction}
+              mouseEnter={mouseEnter}
+              mouseLeave={mouseLeave}
+            />
           )}
           <div
             onClick={() => {
@@ -288,28 +168,8 @@ export const StatusItems = ({
         <div className="my-2">
           <Divide />
         </div>
-        <div className="pb-2">
-          <div className="flex ml-1 space-x-1">
-            <Avatar
-              src={
-                "http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png"
-              }
-              active={false}
-              rounded="rounded-full"
-              shadow=""
-              border="border"
-              size="h-8 w-8"
-            />
-            <div className=" w-full h-9 bg-gray-100 rounded-full ">
-              <input
-                ref={ref}
-                placeholder="viết bình luận"
-                className="px-4 rounded-full ring-transparent border-transparent  focus:outline-none h-full bg-gray-100"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-        </div>
+        <CommentList statusId={statusId} />
+        <PostComment postId={statusId} ref={ref} />
       </div>
     </div>
   );

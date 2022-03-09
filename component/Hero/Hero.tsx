@@ -13,13 +13,16 @@ import { useEffect } from "react";
 import { LatestStory } from "../../type/Stories";
 const hero = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  console.log(loading);
   const [latestStories, setLatestStories] = useState<LatestStory[]>([]);
   const getStories = async () => {
     const stories = await fecthData.getStories();
+    if (stories.length > 0) {
+      setLoading(false);
+    }
     const Stories = sortStory(stories);
 
     const LatestStories = Stories.slice(0, 4);
-    setLoading(false);
 
     setLatestStories(LatestStories);
   };

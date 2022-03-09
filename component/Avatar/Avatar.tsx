@@ -16,9 +16,7 @@ export const Avatar = ({
 }) => {
   return (
     <div
-      className={
-        "rounded-full relative   " + size + " " + shadow + " " + border
-      }
+      className={"rounded-full relative " + size + " " + shadow + "" + border}
     >
       <img src={src} className={"h-full w-full " + rounded} />
       {active === true && (

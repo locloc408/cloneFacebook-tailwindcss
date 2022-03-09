@@ -13,13 +13,13 @@ export default async function handler(
 
     if (req.method === "POST") {
       const findStatus = await Status.findOne({
-        userId: new mongoose.Types.ObjectId(userId as string),
+        statusUser: new mongoose.Types.ObjectId(userId as string),
       });
 
       if (findStatus !== null) {
         const updated = await Status.findOneAndUpdate(
           {
-            userId: new mongoose.Types.ObjectId(userId as string),
+            statusUser: new mongoose.Types.ObjectId(userId as string),
           },
           {
             $push: {
@@ -30,26 +30,25 @@ export default async function handler(
         return res.status(200).json(updated);
       } else {
         const statusCreated = await Status.insertMany({
-          userId: new mongoose.Types.ObjectId(userId as string),
+          statusUser: new mongoose.Types.ObjectId(userId as string),
           status: [req.body],
         });
         return res.status(200).json(statusCreated);
       }
     }
     if (req.method === "GET") {
-      const { userId } = req.query;
       const user = await User.findById(userId);
-      console.log(user);
       const friendsId = user.friendsId;
       const friendsStatus = await Promise.all(
         friendsId.map((id: string) => {
           const status = Status.findOne({
-            userId: new mongoose.Types.ObjectId(id),
-          }).populate("userId");
+            statusUser: new mongoose.Types.ObjectId(id),
+          }).populate("statusUser");
 
           return status;
         })
       );
+      console.log(friendsStatus);
       return res.status(200).json(friendsStatus);
     }
   } catch (error) {

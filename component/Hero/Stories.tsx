@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  memo,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import React, { memo } from "react";
 import { StoryUpload } from "../Story/WatchStory/StoryUpload";
 import { StoryComp } from "../Story/WatchStory/StoryComp";
 import { fecthData } from "../../lib/axios/fetchClientData";
@@ -12,9 +6,12 @@ import { nanoid } from "@reduxjs/toolkit";
 import { LatestStory } from "../../type/Stories";
 import { sortStory } from "../../utils/utils";
 import { useRouter } from "next/dist/client/router";
-const stories = ({ latestStories }: { latestStories: LatestStory[] }) => {
+export const Stories = ({
+  latestStories,
+}: {
+  latestStories: LatestStory[];
+}) => {
   //get 4 stories for view home
-
   const router = useRouter();
   return (
     <div
@@ -65,4 +62,3 @@ const stories = ({ latestStories }: { latestStories: LatestStory[] }) => {
     </div>
   );
 };
-export const Stories = memo(stories);

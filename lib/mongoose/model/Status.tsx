@@ -38,7 +38,7 @@ export const StatusContain = new Schema(
 );
 
 export const Status = new Schema({
-  userId: {
+  statusUser: {
     type: Schema.Types.ObjectId,
     ref: "Users",
   },

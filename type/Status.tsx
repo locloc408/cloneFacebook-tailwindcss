@@ -21,6 +21,6 @@ export interface StatusResponseItems extends StatusPostType {
 
 export interface StatusResponseList {
   status: [StatusResponseItems];
-  userId: UserType;
+  statusUser: UserType;
   _id: string;
 }

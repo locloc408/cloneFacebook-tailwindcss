@@ -6,6 +6,7 @@ import { changeModal, ShowModal } from "../../redux/slice/status";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import dynamic from "next/dynamic";
 import { nanoid } from "@reduxjs/toolkit";
+import { LatestStory } from "../../type/Stories";
 const NoSSRComponent = dynamic(() => import("./Modal"), {
   ssr: false,
 });

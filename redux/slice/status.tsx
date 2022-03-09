@@ -5,14 +5,14 @@ interface initialStateType {
   showModal: boolean;
   showInputZone: boolean;
   file: any[];
-  statusResponseItems: StatusPostType[];
+  showStatusWhenPost: StatusPostType[];
   postFlag: boolean;
 }
 const initialState: initialStateType = {
   showModal: false,
   showInputZone: false,
   file: [],
-  statusResponseItems: [],
+  showStatusWhenPost: [],
   postFlag: false,
 };
 const Status = createSlice({
@@ -26,10 +26,7 @@ const Status = createSlice({
       state.showInputZone = action.payload;
     },
     setStatusResponseItems: (state, action: PayloadAction<StatusPostType>) => {
-      state.statusResponseItems = [
-        action.payload,
-        ...state.statusResponseItems,
-      ];
+      state.showStatusWhenPost = [action.payload, ...state.showStatusWhenPost];
     },
     changepostFlag: (state) => {
       state.postFlag = !state.postFlag;
@@ -48,6 +45,6 @@ export const ShowModal = (state: RootState) => state.StatusReducer.showModal;
 export const ShowInputZone = (state: RootState) =>
   state.StatusReducer.showInputZone;
 export const File = (state: RootState) => state.StatusReducer.file;
-export const statusResponseItems = (state: RootState) =>
-  state.StatusReducer.statusResponseItems;
+export const showStatusWhenPost = (state: RootState) =>
+  state.StatusReducer.showStatusWhenPost;
 export const postFlag = (state: RootState) => state.StatusReducer.postFlag;

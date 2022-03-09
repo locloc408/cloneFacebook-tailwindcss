@@ -4,6 +4,7 @@ import StoryReducer from "./slice/story";
 import StatusReducer from "./slice/status";
 import StoriesReducer from "./slice/Stories";
 import ReactionReducer from "./slice/Reaction";
+import CommentReducer from "./slice/Comment";
 import {
   persistStore,
   persistReducer,
@@ -21,11 +22,17 @@ const reducers = combineReducers({
   StatusReducer: StatusReducer,
   StoriesReducer: StoriesReducer,
   ReactionReducer: ReactionReducer,
+  CommentReducer,
 });
 const persistConfig = {
   key: "root",
   storage: storage,
-  blacklist: ["ReactionReducer", "StatusReducer", "ReactionReducer"],
+  blacklist: [
+    "ReactionReducer",
+    "StatusReducer",
+    "ReactionReducer",
+    "CommentReducer",
+  ],
 };
 const _persistedReducer = persistReducer(persistConfig, reducers);
 const store = configureStore({

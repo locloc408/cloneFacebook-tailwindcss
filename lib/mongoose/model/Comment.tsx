@@ -8,7 +8,7 @@ const Comment = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "Status",
   },
-  text: {
+  textInput: {
     default: "",
     type: String,
   },
@@ -22,4 +22,4 @@ const Comment = new mongoose.Schema({
     },
   ],
 });
-export default mongoose.models.Comment || mongoose.model("Comments", Comment);
+export default mongoose.models.Comments || mongoose.model("Comments", Comment);

@@ -1,33 +1,32 @@
 import axios from "axios";
-import React from "react";
+import React, { memo } from "react";
 import { StatusResponseList } from "../../type/Status";
-import { statusResponseItems } from "../../redux/slice/status";
+import { showStatusWhenPost } from "../../redux/slice/status";
 import { useAppSelector } from "../../redux/hooks";
 import { StatusItems } from "./StatusItems";
 import { nanoid } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { fecthData } from "../../lib/axios/fetchClientData";
 import { UserType } from "../../type/User";
-export const StatusList = () => {
-  const StatusResponseItems = useAppSelector(statusResponseItems);
-  const [statuses, setStatuses] = useState<StatusResponseList[]>([]);
+import useSWR from "swr";
+const statusList = () => {
+  const ShowStatusWhenPost = useAppSelector(showStatusWhenPost);
   const [user, setUser] = useState<UserType>();
-  console.log(statuses);
   const getStatus = async () => {
     const status = await fecthData.getStatuses("61b5cfe89f7f6d222bab9d67");
-    setStatuses(status);
+    return status;
   };
-  const getPostUser = async () => {
+  const { data } = useSWR("61b5cfe89f7f6d222bab9d67", getStatus);
+  const getUser = async () => {
     const user = await fecthData.getUserById("61b5cfe89f7f6d222bab9d67");
     setUser(user);
   };
   useEffect(() => {
-    getStatus();
-    getPostUser();
+    getUser();
   }, []);
   return (
     <div className="flex flex-col items-center mt-6">
-      {StatusResponseItems.map((status) => {
+      {ShowStatusWhenPost.map((status) => {
         return (
           <div
             key={nanoid()}
@@ -38,13 +37,13 @@ export const StatusList = () => {
               statusReactionRes={[]}
               statusContent={status.textInput}
               statusImage={status.ImageUrl}
-              user={user as UserType}
+              statusUser={user as UserType}
               statusId={status.statusId}
             />
           </div>
         );
       })}
-      {statuses?.map((status) => {
+      {data?.map((status) => {
         if (status !== null) {
           return (
             <div
@@ -60,7 +59,7 @@ export const StatusList = () => {
                   status?.status[status?.status.length - 1].textInput
                 }
                 statusImage={status?.status[status?.status.length - 1].ImageUrl}
-                user={status.userId}
+                statusUser={status.statusUser}
                 statusId={status.status[status?.status.length - 1]._id}
               />
             </div>
@@ -70,3 +69,5 @@ export const StatusList = () => {
     </div>
   );
 };
+
+export const StatusList = memo(statusList);

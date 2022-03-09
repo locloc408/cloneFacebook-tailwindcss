@@ -44,47 +44,37 @@ const Modal = () => {
       formData.append("file", files[0]);
       formData.append("upload_preset", "my upload");
 
-      axios
-        .post(
-          "https://api.cloudinary.com/v1_1/dlq2u39zm/image/upload",
-          formData
-        )
-        .then((response) => {
-          fecthData
-            .postStatus("61b5cfe89f7f6d222bab9d67", {
-              ImageUrl: response.data.url,
-              textInput: textInput,
-              statusId: "",
-            })
-            .then((res) => {
-              console.log(res);
-              dispatch(changeModal(false));
-              dispatch(
-                setStatusResponseItems({
-                  ImageUrl: response.data.url,
-                  textInput: textInput,
-                  statusId: res._id,
-                })
-              );
-            });
-        });
+      const ImageUploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dlq2u39zm/image/upload",
+        formData
+      );
+      const status = await fecthData.postStatus("61b5cfe89f7f6d222bab9d67", {
+        ImageUrl: ImageUploadRes.data.url,
+        textInput: textInput,
+        statusId: "",
+      });
+      dispatch(changeModal(false));
+      dispatch(
+        setStatusResponseItems({
+          ImageUrl: ImageUploadRes.data.url,
+          textInput: textInput,
+          statusId: status._id,
+        })
+      );
     } else {
-      fecthData
-        .postStatus("61b5cfe89f7f6d222bab9d67", {
+      const status = await fecthData.postStatus("61b5cfe89f7f6d222bab9d67", {
+        ImageUrl: "",
+        textInput: textInput,
+        statusId: "",
+      });
+      dispatch(changeModal(false));
+      dispatch(
+        setStatusResponseItems({
           ImageUrl: "",
           textInput: textInput,
-          statusId: "",
+          statusId: status._id,
         })
-        .then((res) => {
-          dispatch(changeModal(false));
-          dispatch(
-            setStatusResponseItems({
-              ImageUrl: "",
-              textInput: textInput,
-              statusId: res._id,
-            })
-          );
-        });
+      );
     }
   };
   return (
