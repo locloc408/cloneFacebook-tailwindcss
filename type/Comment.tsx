@@ -6,10 +6,16 @@ export interface CommentForm {
   statusId: string;
 }
 
+export interface UserReaction {
+  _id: string;
+  userId: string;
+  reactionType: string;
+}
+
 export interface CommentRes {
   textInput: string;
   statusId: string;
-  UserReaction: any[];
+  UserReaction: UserReaction[];
   userId: UserType;
   _id: string;
 }

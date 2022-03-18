@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { UserReaction } from "../../type/Status";
 import { UserType } from "../../type/User";
 interface InputType {
@@ -33,21 +33,23 @@ export const useReaction = ({
     caseReactionRes.filter((reaction) => reaction.reactionType !== "unLike")
   );
 
-  const [uniqueReactions, setUniqueReactions] = useState<any[]>(() =>
+  const [uniqueReactions, setUniqueReactions] = useState<string[]>(() =>
     getUnique(Reactions, "reactionType")
   );
 
-  const alreadyLikeUser = caseReactionRes.find(
-    (reaction) => reaction.userId === "61b5cfe89f7f6d222bab9d67"
-  );
+  const alreadyLikeUser = useMemo(() => {
+    return caseReactionRes.find(
+      (reaction) => reaction.userId === "61b5cfe89f7f6d222bab9d67"
+    );
+  }, [caseReactionRes]);
   const [statusesReactionQuantity, setStatusesReactionQuantity] =
     useState<number>(Reactions.length);
+  console.log(statusesReactionQuantity);
   const flag = useRef<any>(null);
   const pause = useRef<boolean>(false);
 
   useEffect(() => {
     setUniqueReactions(getUnique(Reactions, "reactionType"));
-    console.log("kaka");
   }, [Reactions]);
 
   useEffect(() => {
@@ -120,22 +122,22 @@ export const useReaction = ({
         })
       );
       setStatusReaction(() => findEmoji(type) as EmojiType);
-      // switch (caseFetch) {
-      //   case "status":
-      //     await fecthData.postStatusReaction(caseUserId, {
-      //       userId: "61b5cfe89f7f6d222bab9d67",
-      //       reactionType: type,
-      //       statusId: caseId,
-      //     });
+      switch (caseFetch) {
+        case "status":
+          await fecthData.postStatusReaction(caseUserId, {
+            userId: "61b5cfe89f7f6d222bab9d67",
+            reactionType: type,
+            statusId: caseId,
+          });
 
-      //     break;
-      //   case "comment":
-      //     await fecthData.postCommentReaction(caseId, {
-      //       userId: "61b5cfe89f7f6d222bab9d67",
-      //       reactionType: type,
-      //     });
-      //     break;
-      // }
+          break;
+        case "comment":
+          await fecthData.postCommentReaction(caseId, {
+            userId: "61b5cfe89f7f6d222bab9d67",
+            reactionType: type,
+          });
+          break;
+      }
     } else {
       //else add a new reaction
 
@@ -149,82 +151,84 @@ export const useReaction = ({
       setStatusesReactionQuantity(statusesReactionQuantity + 1);
     }
     setStatusReaction(() => findEmoji(type) as EmojiType);
-    // switch (caseFetch) {
-    //   case "status":
-    //     await fecthData.postStatusReaction(caseUserId, {
-    //       userId: "61b5cfe89f7f6d222bab9d67",
-    //       reactionType: type,
-    //       statusId: caseId,
-    //     });
-    //     break;
-    //   case "comment":
-    //     await fecthData.postCommentReaction(caseId, {
-    //       userId: "61b5cfe89f7f6d222bab9d67",
-    //       reactionType: type,
-    //     });
-    //     break;
-    // }
+    switch (caseFetch) {
+      case "status":
+        await fecthData.postStatusReaction(caseUserId, {
+          userId: "61b5cfe89f7f6d222bab9d67",
+          reactionType: type,
+          statusId: caseId,
+        });
+        break;
+      case "comment":
+        await fecthData.postCommentReaction(caseId, {
+          userId: "61b5cfe89f7f6d222bab9d67",
+          reactionType: type,
+        });
+        break;
+    }
   };
 
+  console.log(likeFlag);
   const handleOnClickLike = async () => {
-    console.log("2");
-    if (alreadyLikeUser === undefined || likeFlag === false) {
-      setLikeFlag(true);
-      if (!uniqueReactions.includes("like")) {
-        setUniqueReactions([...uniqueReactions, "like"]);
-      }
-      setReaction([
-        ...Reactions,
-        {
-          userId: "61b5cfe89f7f6d222bab9d67",
-          reactionType: "like",
-        },
-      ]);
-      setStatusReaction(() => findEmoji("like") as EmojiType);
-      setStatusesReactionQuantity(statusesReactionQuantity + 1);
-      // switch (caseFetch) {
-      //   case "status":
-      //     await fecthData.postStatusReaction(caseUserId, {
-      //       userId: "61b5cfe89f7f6d222bab9d67",
-      //       reactionType: "like",
-      //       statusId: caseId,
-      //     });
-      //     break;
-      //   case "comment":
-      //     await fecthData.postCommentReaction(caseId, {
-      //       userId: "61b5cfe89f7f6d222bab9d67",
-      //       reactionType: "like",
-      //     });
-      //     break;
-      // }
-    } else {
-      setLikeFlag(false);
-      const userReaction = Reactions.find(
-        (react) => react.userId === "61b5cfe89f7f6d222bab9d67"
-      );
-      //check if in the unique reaction array has only this user reaction type
-      if (userReaction) {
-        setReaction(
-          Reactions.filter((react) => react.userId !== userReaction.userId)
+    if (alreadyLikeUser) {
+      if (likeFlag === true) {
+        const userReaction = Reactions.find(
+          (react) => react.userId === "61b5cfe89f7f6d222bab9d67"
         );
+        //check if in the unique reaction array has only this user reaction type
+        if (userReaction) {
+          setReaction(
+            Reactions.filter((react) => react.userId !== userReaction.userId)
+          );
+        }
+        setStatusReaction(() => findEmoji("unLike") as EmojiType);
+        setStatusesReactionQuantity(statusesReactionQuantity - 1);
+        setLikeFlag(false);
+      } else {
+        if (!uniqueReactions.includes("like")) {
+          setUniqueReactions([...uniqueReactions, "like"]);
+        }
+        setReaction([
+          ...Reactions,
+          {
+            userId: "61b5cfe89f7f6d222bab9d67",
+            reactionType: "like",
+          },
+        ]);
+        setStatusReaction(() => findEmoji("like") as EmojiType);
+        setStatusesReactionQuantity(statusesReactionQuantity + 1);
+        setLikeFlag(true);
       }
-      setStatusReaction(() => findEmoji("unLike") as EmojiType);
-      setStatusesReactionQuantity(statusesReactionQuantity - 1);
-      // switch (caseFetch) {
-      //   case "status":
-      //     await fecthData.postStatusReaction(caseUserId, {
-      //       userId: "61b5cfe89f7f6d222bab9d67",
-      //       reactionType: "unLike",
-      //       statusId: caseId,
-      //     });
-      //     break;
-      //   case "comment":
-      //     await fecthData.postCommentReaction(caseId, {
-      //       userId: "61b5cfe89f7f6d222bab9d67",
-      //       reactionType: "unlike",
-      //     });
-      //     break;
-      // }
+    } else {
+      if (likeFlag === true) {
+        console.log("lalal");
+        setLikeFlag(false);
+        const userReaction = Reactions.find(
+          (react) => react.userId === "61b5cfe89f7f6d222bab9d67"
+        );
+        //check if in the unique reaction array has only this user reaction type
+        if (userReaction) {
+          setReaction(
+            Reactions.filter((react) => react.userId !== userReaction.userId)
+          );
+        }
+        setStatusReaction(() => findEmoji("unLike") as EmojiType);
+        setStatusesReactionQuantity(statusesReactionQuantity - 1);
+      } else {
+        if (!uniqueReactions.includes("like")) {
+          setUniqueReactions([...uniqueReactions, "like"]);
+        }
+        setReaction([
+          ...Reactions,
+          {
+            userId: "61b5cfe89f7f6d222bab9d67",
+            reactionType: "like",
+          },
+        ]);
+        setStatusReaction(() => findEmoji("like") as EmojiType);
+        setStatusesReactionQuantity(statusesReactionQuantity + 1);
+        setLikeFlag(true);
+      }
     }
   };
   return {

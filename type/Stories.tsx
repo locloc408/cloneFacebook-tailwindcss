@@ -1,5 +1,4 @@
 import { ObjectId } from "mongoose";
-import { commenters } from "./Comment";
 import { UserType } from "./User";
 export interface StoryContainer {
   ImageStory: string;
@@ -7,7 +6,6 @@ export interface StoryContainer {
   textStyle: string;
   viewerReaction: StoryReact[];
   viewerIds: String[];
-  commenters: commenters;
   style: object;
   userId: string;
   _id: string;

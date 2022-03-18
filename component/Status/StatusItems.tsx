@@ -117,7 +117,7 @@ export const StatusItems = ({
           </div>
           {EmojiFlag === true && (
             <ReactionMenu
-              top={"-top-12"}
+              position={"-top-12"}
               handleOnClickReaction={handleOnClickReaction}
               mouseEnter={mouseEnter}
               mouseLeave={mouseLeave}

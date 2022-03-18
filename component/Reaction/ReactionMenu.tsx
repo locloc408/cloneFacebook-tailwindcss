@@ -4,20 +4,23 @@ interface ActionType {
   handleOnClickReaction: (type: string) => void;
   mouseLeave: () => void;
   mouseEnter: () => void;
-  top: string;
+  position: string;
 }
 export const ReactionMenu = ({
   handleOnClickReaction,
   mouseLeave,
   mouseEnter,
-  top,
+  position,
 }: ActionType) => {
   return (
     <div
       className={
-        "absolute flex  space-x-1 bg-white rounded-full border-2 border-gray-200 h-12 z-50 " +
-        top
+        "absolute flex space-x-1 bg-white rounded-full border-2 border-gray-200 h-12  z-50 " +
+        position
       }
+      style={{
+        width: "300px",
+      }}
     >
       {Emoji.map((emoji) => {
         if (emoji.type !== "unLike") {
@@ -31,10 +34,10 @@ export const ReactionMenu = ({
             >
               <img
                 style={{
-                  height: "100%",
+                  height: "50px",
+                  width: "50px",
                 }}
                 src={`/emoji/${emoji?.type}.svg`}
-                width="35px"
               />
             </div>
           );

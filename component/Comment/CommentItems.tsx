@@ -1,36 +1,57 @@
+import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
-import { uid } from "uid";
 import { CommentRes } from "../../type/Comment";
 import { Avatar } from "../Avatar/Avatar";
-import { CommentAction } from "./CommentAction";
-import { useReaction } from "../Reaction/useReaction";
 import { ReactionMenu } from "../Reaction/ReactionMenu";
+import { useReaction } from "../Reaction/useReaction";
+export interface CommentItemType {
+  comment: CommentRes;
+}
+const actions = [
+  {
+    name: "Thích",
+    id: 1,
+    fontWeight: "bold",
+  },
+  {
+    name: "Phản Hồi",
+    id: 2,
+    fontWeight: "bold",
+  },
+  {
+    name: "6 giờ",
+    id: 3,
+    fontWeight: "700px",
+  },
+];
+export const CommentItem: React.FC<CommentItemType> = ({ comment }) => {
+  const {
+    EmojiFlag,
+    uniqueReactions,
+    statusesReactionQuantity,
+    statusReaction,
+    mouseEnter,
+    mouseLeave,
+    handleOnClickLike,
+    handleOnClickReaction,
+  } = useReaction({
+    caseReactionRes: comment.UserReaction,
+    caseId: comment.statusId,
+    caseUserId: comment.userId._id,
+    caseFetch: "comment",
+  });
 
-export const CommentItem = ({ comment }: { comment: CommentRes }) => {
-  const actions = [
-    {
-      name: "Thích",
-      id: 1,
-      fontWeight: "bold",
-    },
-    {
-      name: "Phản Hồi",
-      id: 2,
-      fontWeight: "bold",
-    },
-    {
-      name: "6 giờ",
-      id: 3,
-      fontWeight: "700px",
-    },
-  ];
-  console.log("2");
+  const handleOnClickAction = (id: number) => {
+    if (id === 2) {
+      console.log(comment._id);
+    }
+  };
   return (
-    <div className="flex space-x-1 mb-2 ml-1 relative">
+    <div className="flex space-x-1 mb-2 ml-1">
       <div>
         <Avatar
           size="h-9 w-9"
-          src={comment.userId.img}
+          src={comment?.userId.img}
           rounded={"rounded-full"}
           active={false}
           shadow=""
@@ -43,7 +64,7 @@ export const CommentItem = ({ comment }: { comment: CommentRes }) => {
             style={{
               maxWidth: "calc(100% - 26px)",
             }}
-            className="bg-gray-200 rounded-lg px-2 pt-1 inline-block"
+            className="bg-gray-200 rounded-lg px-2 pt-1 inline-block relative"
           >
             <div
               style={{
@@ -52,22 +73,78 @@ export const CommentItem = ({ comment }: { comment: CommentRes }) => {
                 fontWeight: "600px",
               }}
             >
-              {comment.userId.name}
+              {comment?.userId.name}
             </div>
-            <div>{comment.textInput}</div>
+            <div>{comment?.textInput}</div>
+            <div
+              style={{ borderRadius: "10px" }}
+              className="flex space-x-1 absolute -right-6 bottom-0  bg-white border-white shadow-lg px-1 "
+            >
+              <div className="flex">
+                {uniqueReactions?.map((reaction) => {
+                  if (reaction !== "") {
+                    return (
+                      <div key={nanoid()}>
+                        <img
+                          style={{
+                            height: "100%",
+                          }}
+                          src={`./emoji/${reaction}.svg`}
+                          width="15px"
+                        />
+                      </div>
+                    );
+                  }
+                })}
+                {statusesReactionQuantity > 0 && statusesReactionQuantity}
+              </div>
+            </div>
           </div>
         </div>
         <div className="inline-block">
           <div className="flex space-x-2">
             {actions.map((action) => {
               return (
-                <div key={uid()}>
-                  <CommentAction action={action} />
+                <div key={nanoid()}>
+                  {action.id === 1 ? (
+                    <div>
+                      <div
+                        onMouseEnter={mouseEnter}
+                        onMouseLeave={mouseLeave}
+                        onClick={handleOnClickLike}
+                        className="flex-1 flex justify-center items-center  cursor-pointer hover:underline rounded-md "
+                      >
+                        <div className="flex space-x-1 ">
+                          <div
+                            className={`text${statusReaction?.color} ${statusReaction?.font}`}
+                          >
+                            {statusReaction ? statusReaction.content : "Thích"}
+                          </div>
+                        </div>
+                      </div>
+                      {EmojiFlag === true && (
+                        <ReactionMenu
+                          position={"-top-0 left-1"}
+                          handleOnClickReaction={handleOnClickReaction}
+                          mouseEnter={mouseEnter}
+                          mouseLeave={mouseLeave}
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => handleOnClickAction(action.id)}
+                      className="cursor-pointer hover:underline"
+                    >
+                      {action.name}
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
+        <div></div>
       </div>
     </div>
   );
