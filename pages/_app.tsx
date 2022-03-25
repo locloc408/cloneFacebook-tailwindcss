@@ -3,7 +3,13 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "../redux/store";
+import Router from "next/router";
+import nProgress from "nprogress";
 import "../styles/globals.css";
+import "../styles/nprogress.css";
+Router.events.on("routeChangeStart", nProgress.start);
+Router.events.on("routeChangeError", nProgress.done);
+Router.events.on("routeChangeComplete", nProgress.done);
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
@@ -23,6 +29,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
+          {/* <script src="nprogress.js"></script>
+          <link rel="stylesheet" href="nprogress.css" /> */}
         </Head>
         <Component {...pageProps} />
       </PersistGate>

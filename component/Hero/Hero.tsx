@@ -9,25 +9,35 @@ import { FriendRequest } from "./FriendRequest";
 import { LeftSideMenu } from "./LeftSideMenu";
 import { LeftSideMenuGroups } from "./LeftSideMenuGroups";
 import { RightSideMenuFriends } from "./RightSideMenuFriends";
+import useSWR from "swr";
+import { UserType } from "../../type/User";
 import { Stories } from "./Stories";
+import { StatusResponseList } from "../../type/Status";
 const hero = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  console.log(loading);
-  const [latestStories, setLatestStories] = useState<LatestStory[]>([]);
+  const getStatus = async () => {
+    const status = await fecthData.getStatuses("61b5cfe89f7f6d222bab9d67");
+    return status;
+  };
+  const getUser = async () => {
+    const user = await fecthData.getUserById("61b5cfe89f7f6d222bab9d67");
+    return user;
+  };
   const getStories = async () => {
     const stories = await fecthData.getStories();
-    if (stories.length > 0) {
-      setLoading(false);
-    }
     const Stories = sortStory(stories);
 
     const LatestStories = Stories.slice(0, 4);
-
-    setLatestStories(LatestStories);
+    return LatestStories;
   };
+  const { data: data } = useSWR("61b5cfe89f7f6d222bab9d67", getStatus);
+  const { data: user } = useSWR("61b5cfe89f7f6d222bab9d67/user", getUser);
+  const { data: latestStories } = useSWR("latestStory", getStories);
   useEffect(() => {
-    getStories();
-  }, []);
+    if (data && latestStories) {
+      setLoading(false);
+    }
+  }, [data]);
   return loading === true ? (
     <div className="h-screen w-full flex justify-center items-center">
       <div
@@ -56,10 +66,13 @@ const hero = () => {
         className="lg:w-2/3 pt-16 relative bg-main"
         style={{ width: "590px" }}
       >
-        <Stories latestStories={latestStories} />
+        <Stories latestStories={latestStories as LatestStory[]} />
         <PostStatus />
         <CreateMeet />
-        <StatusList />
+        <StatusList
+          user={user as UserType}
+          data={data as StatusResponseList[]}
+        />
       </div>
       <div
         className="fixed top-0 mt-14 right-0 overflow-y-auto bg-main mr-2"

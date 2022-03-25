@@ -6,21 +6,16 @@ import { useAppSelector } from "../../redux/hooks";
 import { showStatusWhenPost } from "../../redux/slice/status";
 import { UserType } from "../../type/User";
 import { StatusItems } from "./StatusItems";
-const statusList = () => {
+import { StatusResponseList } from "../../type/Status";
+const statusList = ({
+  data,
+  user,
+}: {
+  data: StatusResponseList[];
+  user: UserType;
+}) => {
   const ShowStatusWhenPost = useAppSelector(showStatusWhenPost);
-  const [user, setUser] = useState<UserType>();
-  const getStatus = async () => {
-    const status = await fecthData.getStatuses("61b5cfe89f7f6d222bab9d67");
-    return status;
-  };
-  const { data } = useSWR("61b5cfe89f7f6d222bab9d67", getStatus);
-  const getUser = async () => {
-    const user = await fecthData.getUserById("61b5cfe89f7f6d222bab9d67");
-    setUser(user);
-  };
-  useEffect(() => {
-    getUser();
-  }, []);
+
   return (
     <div className="flex flex-col items-center mt-6">
       {ShowStatusWhenPost.map((status) => {
