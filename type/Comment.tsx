@@ -1,9 +1,10 @@
 import { UserType } from "./User";
-
+import { SubComment, SubCommentRes } from "./SubComment";
 export interface CommentForm {
   textInput: string;
   userId: string;
   statusId: string;
+  _id?: string;
 }
 
 export interface UserReaction {
@@ -18,4 +19,9 @@ export interface CommentRes {
   UserReaction: UserReaction[];
   userId: UserType;
   _id: string;
+  SubComments: [
+    {
+      SubCommentsId: SubCommentRes;
+    }
+  ];
 }

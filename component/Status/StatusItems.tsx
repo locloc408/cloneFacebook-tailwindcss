@@ -4,11 +4,13 @@ import { UserReaction, UserReactionPost } from "../../type/Status";
 import { UserType } from "../../type/User";
 import { Avatar } from "../Avatar/Avatar";
 import { Divide } from "../Divide/Divide";
-import PostComment from "../Comment/PostComment";
+import { PostComment } from "../Comment/PostComment";
 import { CommentList } from "../Comment/CommentList";
 import { useReaction } from "../Reaction/useReaction";
 import { ReactionMenu } from "../Reaction/ReactionMenu";
 import { fecthData } from "../../lib/axios/fetchClientData";
+import { useState } from "react";
+import { uid } from "uid";
 interface StatusItemsType {
   statusUser: UserType;
   statusContent: string;
@@ -24,6 +26,7 @@ export const StatusItems = ({
   statusReactionRes,
 }: StatusItemsType) => {
   const ref = useRef<HTMLInputElement | null>(null);
+  const [isFocus, setOnFocus] = useState(false);
   const {
     EmojiFlag,
     uniqueReactions,
@@ -125,7 +128,7 @@ export const StatusItems = ({
           )}
           <div
             onClick={() => {
-              ref.current?.focus();
+              setOnFocus(true);
             }}
             className="flex-1 flex justify-center items-center cursor-pointer hover:bg-gray-100 rounded-md"
           >
@@ -169,7 +172,7 @@ export const StatusItems = ({
           <Divide />
         </div>
         <CommentList statusId={statusId} />
-        <PostComment postId={statusId} ref={ref} />
+        <PostComment postId={statusId} isFocus={isFocus} id={uid()} />
       </div>
     </div>
   );

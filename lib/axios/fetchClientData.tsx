@@ -13,7 +13,7 @@ import {
   UserReaction,
   UserReactionPost,
 } from "../../type/Status";
-import { CommentForm, CommentRes } from "../../type/Comment";
+import { CommentForm, CommentRes, relpliComment } from "../../type/Comment";
 export const fecthData = {
   getFriendsLists: async () => {
     const url = "/RightSideMenuFriends";
@@ -89,6 +89,13 @@ export const fecthData = {
   },
   postCommentReaction: async (commentId: string, data: UserReaction) => {
     const url = "/Comment/Reaction/" + commentId;
+    const res = await axiosClient.post(url, data);
+    return res;
+  },
+
+  //
+  postSubComment: async (data: relpliComment) => {
+    const url = "/SubComment";
     const res = await axiosClient.post(url, data);
     return res;
   },

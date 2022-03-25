@@ -1,10 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 export const SubComment = new Schema(
   {
-    replyUserId: {
-      type: Schema.Types.ObjectId,
-      ref: "Users",
-    },
     replyCommentId: {
       type: Schema.Types.ObjectId,
       ref: "Comments",
@@ -17,7 +13,7 @@ export const SubComment = new Schema(
       type: String,
       default: "",
     },
-    userReaction: [
+    UserReaction: [
       {
         userId: {
           type: Schema.Types.ObjectId,
@@ -26,9 +22,10 @@ export const SubComment = new Schema(
         reactionType: String,
       },
     ],
+    statusId: String,
   },
   { timestamps: true }
 );
 
-export default mongoose.models.SubComment ||
-  mongoose.model("SubComment", SubComment);
+export default mongoose.models.SubComments ||
+  mongoose.model("SubComments", SubComment);

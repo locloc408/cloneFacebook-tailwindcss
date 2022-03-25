@@ -21,5 +21,13 @@ const Comment = new mongoose.Schema({
       reactionType: String,
     },
   ],
+  SubComments: [
+    {
+      SubCommentsId: {
+        type: Schema.Types.ObjectId,
+        ref: "SubComments",
+      },
+    },
+  ],
 });
 export default mongoose.models.Comments || mongoose.model("Comments", Comment);

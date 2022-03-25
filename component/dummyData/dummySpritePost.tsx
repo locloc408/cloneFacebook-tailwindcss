@@ -1,7 +1,7 @@
 export const PostIcon = [
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/KzmUzY1_3Zb.png",
-    position: "0 -282px",
+    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    position: "0 -308px",
     bg: true,
     title: "Ảnh/Video",
     width: "w-13",
@@ -9,8 +9,8 @@ export const PostIcon = [
     id: 1,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/KzmUzY1_3Zb.png",
-    position: "0 -257px",
+    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    position: "0 -283px",
     bg: true,
     title: "Gắn Thẻ Người Khác",
     width: "w-36",
@@ -18,8 +18,8 @@ export const PostIcon = [
     id: 2,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/KzmUzY1_3Zb.png",
-    position: "0 -232px",
+    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    position: "0 -258px",
     bg: true,
     title: "Cảm Xúc/Hoạt động",
     width: "w-36",
@@ -45,8 +45,8 @@ export const PostIcon = [
     id: 5,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/KzmUzY1_3Zb.png",
-    position: "0 -157px",
+    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    position: "0 -183px",
     bg: true,
     title: "Xem Thêm",
     width: "w-20",

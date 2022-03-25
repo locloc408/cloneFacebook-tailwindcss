@@ -17,7 +17,7 @@ export const CommentList = ({ statusId }: { statusId: string }) => {
       {comments?.map((comment) => {
         return (
           <div className="relative" key={uid()}>
-            <CustomNode Component={<CommentItem comment={comment} />} />
+            <CommentItem  comment={comment} />
           </div>
         );
       })}

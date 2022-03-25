@@ -1,11 +1,15 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
 import { CommentRes } from "../../type/Comment";
+import { UserReaction } from "../../type/Status";
 import { Avatar } from "../Avatar/Avatar";
 import { ReactionMenu } from "../Reaction/ReactionMenu";
 import { useReaction } from "../Reaction/useReaction";
+import { setReplyComment } from "../../redux/slice/Comment";
+import { useAppDispatch } from "../../redux/hooks";
+import { SubCommentRes } from "../../type/SubComment";
 export interface CommentItemType {
-  comment: CommentRes;
+  comment?: CommentRes;
 }
 const actions = [
   {
@@ -35,15 +39,21 @@ export const CommentItem: React.FC<CommentItemType> = ({ comment }) => {
     handleOnClickLike,
     handleOnClickReaction,
   } = useReaction({
-    caseReactionRes: comment.UserReaction,
-    caseId: comment.statusId,
-    caseUserId: comment.userId._id,
+    caseReactionRes: comment?.UserReaction as UserReaction[],
+    caseId: comment?.userId._id as string,
+    caseUserId: comment?.userId._id as string,
     caseFetch: "comment",
   });
 
+  const dispatch = useAppDispatch();
   const handleOnClickAction = (id: number) => {
     if (id === 2) {
-      console.log(comment._id);
+      console.log("click");
+      dispatch(
+        setReplyComment({
+          replyCommentId: comment?._id,
+        })
+      );
     }
   };
   return (
@@ -51,7 +61,7 @@ export const CommentItem: React.FC<CommentItemType> = ({ comment }) => {
       <div>
         <Avatar
           size="h-9 w-9"
-          src={comment?.userId.img}
+          src={comment?.userId.img as string}
           rounded={"rounded-full"}
           active={false}
           shadow=""

@@ -29,8 +29,8 @@ export const useReaction = ({
     () => findEmoji("unLike") as EmojiType
   );
 
-  const [Reactions, setReaction] = useState<UserReaction[]>(() =>
-    caseReactionRes.filter((reaction) => reaction.reactionType !== "unLike")
+  const [Reactions, setReaction] = useState(() =>
+    caseReactionRes?.filter((reaction) => reaction.reactionType !== "unLike")
   );
 
   const [uniqueReactions, setUniqueReactions] = useState<string[]>(() =>
@@ -44,7 +44,6 @@ export const useReaction = ({
   }, [caseReactionRes]);
   const [statusesReactionQuantity, setStatusesReactionQuantity] =
     useState<number>(Reactions.length);
-  console.log(statusesReactionQuantity);
   const flag = useRef<any>(null);
   const pause = useRef<boolean>(false);
 
@@ -168,7 +167,6 @@ export const useReaction = ({
     }
   };
 
-  console.log(likeFlag);
   const handleOnClickLike = async () => {
     if (alreadyLikeUser) {
       if (likeFlag === true) {

@@ -1,21 +1,44 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CommentForm } from "../../type/Comment";
+import { CommentForm, relpliComment } from "../../type/Comment";
+import { RootState } from "../store";
 interface initialStateTYpe {
-  Comment: CommentForm[];
+  ReplyComment: relpliComment;
+  isDoneInput: boolean;
+  nodeId: string;
 }
 const initialState: initialStateTYpe = {
-  Comment: [],
+  ReplyComment: {
+    replyCommentId: "",
+  },
+  isDoneInput: false,
+  nodeId: "",
 };
 const Comment = createSlice({
   name: "comment",
   initialState: initialState,
   reducers: {
-    setComment: (state, action: PayloadAction<CommentForm>) => {
-      state.Comment.push(action.payload);
+    setReplyComment: (state, action: PayloadAction<relpliComment>) => {
+      state.ReplyComment = action.payload;
+    },
+    setisDoneInput: (state, action: PayloadAction<boolean>) => {
+      state.isDoneInput = action.payload;
+    },
+    setNodeId: (state, action: PayloadAction<string>) => {
+      state.nodeId = action.payload;
     },
   },
 });
 
 export default Comment.reducer;
 
-export const { setComment } = Comment.actions;
+export const {
+  setReplyComment,
+
+  setisDoneInput,
+  setNodeId,
+} = Comment.actions;
+export const ReplyComment = (state: RootState) =>
+  state.CommentReducer.ReplyComment;
+export const IsDoneInput = (state: RootState) =>
+  state.CommentReducer.isDoneInput;
+export const NodeId = (state: RootState) => state.CommentReducer.nodeId;

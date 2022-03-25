@@ -1,22 +1,19 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Divide } from "../Divide/Divide";
-import { IconButton } from "../IconButton/IconButton";
-import {
-  changeModal,
-  ShowInputZone,
-  setStatusResponseItems,
-} from "../../redux/slice/status";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { Avatar } from "../Avatar/Avatar";
-import { PostIcon } from "../dummyData/dummySpritePost";
-import { WrapSpriteIcon } from "./WrapSpriteIcon";
-import Picker from "emoji-picker-react";
-import { useClickOutSide, usePreviewImage } from "../../utils/utils";
-import { ImageZone } from "./ImageZone";
-import axios from "axios";
-import { fecthData } from "../../lib/axios/fetchClientData";
 import { nanoid } from "@reduxjs/toolkit";
-import useSWR from "swr";
+import axios from "axios";
+import Picker from "emoji-picker-react";
+import React, { useRef, useState } from "react";
+import { fecthData } from "../../lib/axios/fetchClientData";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  changeModal, setStatusResponseItems, ShowInputZone
+} from "../../redux/slice/status";
+import { useClickOutSide, usePreviewImage } from "../../utils/utils";
+import { Avatar } from "../Avatar/Avatar";
+import { Divide } from "../Divide/Divide";
+import { PostIcon } from "../dummyData/dummySpritePost";
+import { IconButton } from "../IconButton/IconButton";
+import { ImageZone } from "./ImageZone";
+import { WrapSpriteIcon } from "./WrapSpriteIcon";
 const Modal = () => {
   const dispatch = useAppDispatch();
   const ChangeModal = () => {
