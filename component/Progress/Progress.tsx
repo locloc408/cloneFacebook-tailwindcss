@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, memo } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 const progress = ({
   pause,
   index,

@@ -1,8 +1,8 @@
+import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "../../../../lib/mongoose/ConnectDB";
 import Status from "../../../../lib/mongoose/model/Status";
 import User from "../../../../lib/mongoose/model/User";
-import mongoose from "mongoose";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

@@ -1,23 +1,15 @@
 import {
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-  FormEvent,
-  useState,
-  ChangeEvent,
+  ChangeEvent, FormEvent, useEffect, useRef, useState
 } from "react";
-import { Avatar } from "../Avatar/Avatar";
-import { fecthData } from "../../lib/axios/fetchClientData";
 import { useSWRConfig } from "swr";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { uid } from "uid";
+import { fecthData } from "../../lib/axios/fetchClientData";
+import { useAppDispatch } from "../../redux/hooks";
 import {
   setisDoneInput,
-  setNodeId,
-  setReplyComment,
-  ReplyComment,
+  setNodeId
 } from "../../redux/slice/Comment";
-import { uid } from "uid";
+import { Avatar } from "../Avatar/Avatar";
 export const PostComment = ({
   id,
   postId,
@@ -39,7 +31,6 @@ export const PostComment = ({
     setInputValue(e.target.value);
   };
   const dispatch = useAppDispatch();
-  const replyComment = useAppSelector(ReplyComment);
   console.log(inputValue);
   const HanldePostComment = async (event: FormEvent) => {
     event.preventDefault();
@@ -57,18 +48,6 @@ export const PostComment = ({
         _id: uid(24),
       });
       mutate(`${postId}`, newestComments, false);
-    }
-    if (reply && inputValue !== "") {
-      const sub = await fecthData.postSubComment({
-        userId: "61b74737b003e561f956b6d7",
-        textInput: inputValue,
-        replyCommentId: replyComment.replyCommentId,
-        _id: uid(24),
-        statusId: postId,
-      });
-      console.log(sub);
-      setInputValue("");
-      // mutate(`${postId}`, sub, false);
     }
   };
   return (

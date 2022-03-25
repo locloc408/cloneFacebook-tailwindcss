@@ -1,11 +1,10 @@
-import React, { useState, useEffect, memo } from "react";
-import { fecthData } from "../../../lib/axios/fetchClientData";
+import { nanoid } from "@reduxjs/toolkit";
+import React, { memo, useEffect, useState } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import { userId } from "../../../redux/slice/Stories";
-import { StoryType, sortedStoryType } from "../../../type/Stories";
-import { nanoid } from "@reduxjs/toolkit";
-import { Slider } from "../../Slider/slider";
+import { sortedStoryType, StoryType } from "../../../type/Stories";
 import { UserType } from "../../../type/User";
+import { Slider } from "../../Slider/slider";
 const storyDetail = ({
   Friends,
   pauseFlagMouse,

@@ -1,7 +1,7 @@
+import { nanoid } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import { storyReaction } from "../../../redux/slice/Reaction";
-import { nanoid } from "@reduxjs/toolkit";
 import { storyFriendIndex } from "../../../redux/slice/Stories";
 import { sortedStoryType } from "../../../type/Stories";
 import { UserType } from "../../../type/User";

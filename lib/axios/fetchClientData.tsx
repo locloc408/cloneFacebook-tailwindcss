@@ -1,19 +1,19 @@
-import axiosClient from "./ClientAxios";
-import { UserType } from "../../type/User";
-
-import {
-  postStoryText,
-  StoryType,
-  StoryViewerReact,
-  WatchedStoryType,
-} from "../../type/Stories";
+import { CommentForm, CommentRes } from "../../type/Comment";
 import {
   StatusPostType,
   StatusResponseList,
   UserReaction,
   UserReactionPost,
 } from "../../type/Status";
-import { CommentForm, CommentRes, relpliComment } from "../../type/Comment";
+import {
+  postStoryText,
+  StoryType,
+  StoryViewerReact,
+  WatchedStoryType,
+} from "../../type/Stories";
+import { UserType } from "../../type/User";
+import axiosClient from "./ClientAxios";
+
 export const fecthData = {
   getFriendsLists: async () => {
     const url = "/RightSideMenuFriends";
@@ -94,9 +94,4 @@ export const fecthData = {
   },
 
   //
-  postSubComment: async (data: relpliComment) => {
-    const url = "/SubComment";
-    const res = await axiosClient.post(url, data);
-    return res;
-  },
 };

@@ -1,13 +1,12 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { setReplyComment } from "../../redux/slice/Comment";
 import { CommentRes } from "../../type/Comment";
 import { UserReaction } from "../../type/Status";
 import { Avatar } from "../Avatar/Avatar";
 import { ReactionMenu } from "../Reaction/ReactionMenu";
 import { useReaction } from "../Reaction/useReaction";
-import { setReplyComment } from "../../redux/slice/Comment";
-import { useAppDispatch } from "../../redux/hooks";
-import { SubCommentRes } from "../../type/SubComment";
 export interface CommentItemType {
   comment?: CommentRes;
 }

@@ -1,16 +1,15 @@
-import React, { memo, useState } from "react";
-import { LeftSideMenuGroups } from "./LeftSideMenuGroups";
-import { LeftSideMenu } from "./LeftSideMenu";
-import { RightSideMenuFriends } from "./RightSideMenuFriends";
-import { FriendRequest } from "./FriendRequest";
-import { Stories } from "./Stories";
-import { PostStatus } from "../Status/PostStatus";
-import { CreateMeet } from "../Meet/CreateMeet";
-import { StatusList } from "../Status/StatusList";
+import React, { memo, useEffect, useState } from "react";
 import { fecthData } from "../../lib/axios/fetchClientData";
-import { sortStory } from "../../utils/utils";
-import { useEffect } from "react";
 import { LatestStory } from "../../type/Stories";
+import { sortStory } from "../../utils/utils";
+import { CreateMeet } from "../Meet/CreateMeet";
+import { PostStatus } from "../Status/PostStatus";
+import { StatusList } from "../Status/StatusList";
+import { FriendRequest } from "./FriendRequest";
+import { LeftSideMenu } from "./LeftSideMenu";
+import { LeftSideMenuGroups } from "./LeftSideMenuGroups";
+import { RightSideMenuFriends } from "./RightSideMenuFriends";
+import { Stories } from "./Stories";
 const hero = () => {
   const [loading, setLoading] = useState<boolean>(true);
   console.log(loading);

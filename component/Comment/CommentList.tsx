@@ -2,7 +2,6 @@ import React from "react";
 import useSWR from "swr";
 import { uid } from "uid";
 import { fecthData } from "../../lib/axios/fetchClientData";
-import CustomNode from "../testComp/CustomNode";
 import { CommentItem } from "./CommentItems";
 export const CommentList = ({ statusId }: { statusId: string }) => {
   const fetcher = async () => {
@@ -17,7 +16,7 @@ export const CommentList = ({ statusId }: { statusId: string }) => {
       {comments?.map((comment) => {
         return (
           <div className="relative" key={uid()}>
-            <CommentItem  comment={comment} />
+            <CommentItem comment={comment} />
           </div>
         );
       })}

@@ -1,21 +1,20 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { sortedStoryType, StoryType } from "../../type/Stories";
-import {
-  storyFriendIndex,
-  showStoryDetail,
-  setStoryId,
-  storyId,
-} from "../../redux/slice/Stories";
 import { nanoid } from "@reduxjs/toolkit";
-import { useAppSelector } from "../../redux/hooks";
-import { Progress } from "../Progress/Progress";
-import { UserType } from "../../type/User";
-import { useAppDispatch } from "../../redux/hooks";
-import { StoryAction } from "../Story/WatchStory/StoryAction";
-import { Avatar } from "../Avatar/Avatar";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { fecthData } from "../../lib/axios/fetchClientData";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  setStoryId,
+  showStoryDetail,
+  storyFriendIndex,
+  storyId,
+  userId,
+} from "../../redux/slice/Stories";
+import { sortedStoryType, StoryType } from "../../type/Stories";
+import { UserType } from "../../type/User";
+import { Avatar } from "../Avatar/Avatar";
+import { Progress } from "../Progress/Progress";
+import { StoryAction } from "../Story/WatchStory/StoryAction";
 import { StoryReaction } from "../Story/WatchStory/StoryReaction";
-import { userId } from "../../redux/slice/Stories";
 const slider = ({
   pauseFlagMouse,
   Friends,

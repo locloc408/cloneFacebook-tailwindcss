@@ -1,14 +1,11 @@
-import axios from "axios";
-import React, { memo } from "react";
-import { StatusResponseList } from "../../type/Status";
-import { showStatusWhenPost } from "../../redux/slice/status";
-import { useAppSelector } from "../../redux/hooks";
-import { StatusItems } from "./StatusItems";
 import { nanoid } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
-import { fecthData } from "../../lib/axios/fetchClientData";
-import { UserType } from "../../type/User";
+import React, { memo, useEffect, useState } from "react";
 import useSWR from "swr";
+import { fecthData } from "../../lib/axios/fetchClientData";
+import { useAppSelector } from "../../redux/hooks";
+import { showStatusWhenPost } from "../../redux/slice/status";
+import { UserType } from "../../type/User";
+import { StatusItems } from "./StatusItems";
 const statusList = () => {
   const ShowStatusWhenPost = useAppSelector(showStatusWhenPost);
   const [user, setUser] = useState<UserType>();

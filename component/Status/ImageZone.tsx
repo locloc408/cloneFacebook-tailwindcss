@@ -1,9 +1,8 @@
 import { nanoid } from "@reduxjs/toolkit";
-import image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAppDispatch } from "../../redux/hooks";
-import { IconButton } from "../IconButton/IconButton";
 import { setshowInputZone } from "../../redux/slice/status";
+import { IconButton } from "../IconButton/IconButton";
 export const ImageZone = ({
   files,
   setFiles,

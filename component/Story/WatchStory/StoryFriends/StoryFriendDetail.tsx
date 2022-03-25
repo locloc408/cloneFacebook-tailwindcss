@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { setPause, showStoryDetail, storyFriendIndex, storyId } from "../../../../redux/slice/Stories";
 import { StoryType } from "../../../../type/Stories";
 import { UserType } from "../../../../type/User";
 import { ListItemWithAvatatar } from "../../../ListItemWithAvatar/ListItemWithAvatar";
-import { storyId, userId } from "../../../../redux/slice/Stories";
-import {
-  storyFriendIndex,
-  showStoryDetail,
-  setPause,
-} from "../../../../redux/slice/Stories";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 export const StoryFriendDetail = ({
   friend,
   index,

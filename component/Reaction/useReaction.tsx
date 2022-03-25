@@ -1,17 +1,15 @@
-import React, { memo, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { fecthData } from "../../lib/axios/fetchClientData";
+import { EmojiType } from "../../type/Emoji";
 import { UserReaction } from "../../type/Status";
-import { UserType } from "../../type/User";
+import { getUnique } from "../../utils/utils";
+import { Emoji } from "../dummyData/emoji";
 interface InputType {
   caseReactionRes: UserReaction[];
   caseId: string;
   caseUserId: string;
   caseFetch: string;
 }
-import { useEffect, useState, useRef } from "react";
-import { fecthData } from "../../lib/axios/fetchClientData";
-import { Emoji } from "../dummyData/emoji";
-import { EmojiType } from "../../type/Emoji";
-import { getUnique } from "../../utils/utils";
 export const useReaction = ({
   caseReactionRes,
   caseId,

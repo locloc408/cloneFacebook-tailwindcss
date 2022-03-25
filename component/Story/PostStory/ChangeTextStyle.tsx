@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import { BackgroundStoris } from "../../dummyData/dummyColor";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
-  setTextStyle,
-  setTextInput,
-  setImg,
-  postTextStory,
-  TextInput,
-  ImageStory,
-  TextStyle,
+  ImageStory, postTextStory, setImg, setTextInput, setTextStyle, TextInput, TextStyle
 } from "../../../redux/slice/story";
+import { BackgroundStoris } from "../../dummyData/dummyColor";
 export const ChangeParagraphStyle = () => {
   const [backgroundColor, setBackgroundColor] = useState(1);
 

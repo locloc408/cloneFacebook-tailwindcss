@@ -1,18 +1,17 @@
-import { IconButton } from "../../IconButton/IconButton";
+import { useRouter } from "next/dist/client/router";
+import { useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { } from "../../../redux/slice/Stories";
 import { Avatar } from "../../Avatar/Avatar";
 import { Divide } from "../../Divide/Divide";
 import { MenuFeatures } from "../../dummyData/dummyMenuFeatures";
+import { IconButton } from "../../IconButton/IconButton";
 import { MenuFeature } from "../../Navbar/MenuFeature";
-import { useState } from "react";
-import { useRouter } from "next/dist/client/router";
 import { Tooltip } from "../../Tooltip/Tooltip";
-import { useDropzone } from "react-dropzone";
-import { useEffect } from "react";
+import { ChangeParagraphStyle } from "./ChangeTextStyle";
 import { CreateStoryWithImage } from "./CreateStoryWithImage";
 import { CreateStoryWithText } from "./CreateStoryWithText";
 import { OptionToChoseStory } from "./OptionToChoseStory";
-import { ChangeParagraphStyle } from "./ChangeTextStyle";
-import {} from "../../../redux/slice/Stories";
 export const CreateStory = () => {
   const [files, setFiles] = useState<any[]>([]);
   const { getRootProps, getInputProps } = useDropzone({

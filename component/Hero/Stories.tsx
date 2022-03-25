@@ -1,11 +1,9 @@
-import React, { memo } from "react";
-import { StoryUpload } from "../Story/WatchStory/StoryUpload";
-import { StoryComp } from "../Story/WatchStory/StoryComp";
-import { fecthData } from "../../lib/axios/fetchClientData";
 import { nanoid } from "@reduxjs/toolkit";
-import { LatestStory } from "../../type/Stories";
-import { sortStory } from "../../utils/utils";
 import { useRouter } from "next/dist/client/router";
+import React from "react";
+import { LatestStory } from "../../type/Stories";
+import { StoryComp } from "../Story/WatchStory/StoryComp";
+import { StoryUpload } from "../Story/WatchStory/StoryUpload";
 export const Stories = ({
   latestStories,
 }: {

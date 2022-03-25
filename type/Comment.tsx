@@ -1,5 +1,5 @@
 import { UserType } from "./User";
-import { SubComment, SubCommentRes } from "./SubComment";
+import { SubCommentRes } from "./SubComment";
 export interface CommentForm {
   textInput: string;
   userId: string;

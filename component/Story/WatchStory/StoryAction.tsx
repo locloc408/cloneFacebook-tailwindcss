@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import { pause, storyId } from "../../../redux/slice/Stories";
 export const StoryAction = ({

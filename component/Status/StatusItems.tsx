@@ -1,16 +1,14 @@
 import { nanoid } from "@reduxjs/toolkit";
-import React, { useRef } from "react";
-import { UserReaction, UserReactionPost } from "../../type/Status";
+import React, { useRef, useState } from "react";
+import { uid } from "uid";
+import { UserReaction } from "../../type/Status";
 import { UserType } from "../../type/User";
 import { Avatar } from "../Avatar/Avatar";
-import { Divide } from "../Divide/Divide";
-import { PostComment } from "../Comment/PostComment";
 import { CommentList } from "../Comment/CommentList";
-import { useReaction } from "../Reaction/useReaction";
+import { PostComment } from "../Comment/PostComment";
+import { Divide } from "../Divide/Divide";
 import { ReactionMenu } from "../Reaction/ReactionMenu";
-import { fecthData } from "../../lib/axios/fetchClientData";
-import { useState } from "react";
-import { uid } from "uid";
+import { useReaction } from "../Reaction/useReaction";
 interface StatusItemsType {
   statusUser: UserType;
   statusContent: string;

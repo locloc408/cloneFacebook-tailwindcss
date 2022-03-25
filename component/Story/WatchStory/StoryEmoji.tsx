@@ -1,9 +1,8 @@
 import React from "react";
-import { Emoji } from "../../dummyData/emoji";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { postStoryReaction, setPause } from "../../../redux/slice/Stories";
 import { setReaction } from "../../../redux/slice/Reaction";
-import { storyId, userId } from "../../../redux/slice/Stories";
+import { postStoryReaction, setPause, storyId, userId } from "../../../redux/slice/Stories";
+import { Emoji } from "../../dummyData/emoji";
 export const StoryEmoji = ({
   pauseFlagMouse,
 }: {

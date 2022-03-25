@@ -1,7 +1,7 @@
+import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "../../../../lib/mongoose/ConnectDB";
 import Story from "../../../../lib/mongoose/model/Stories";
-import mongoose from "mongoose";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

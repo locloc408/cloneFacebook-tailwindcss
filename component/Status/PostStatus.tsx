@@ -1,12 +1,11 @@
+import { nanoid } from "@reduxjs/toolkit";
+import dynamic from "next/dynamic";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { changeModal, ShowModal } from "../../redux/slice/status";
 import { Avatar } from "../Avatar/Avatar";
 import { Divide } from "../Divide/Divide";
 import { PostStatusIcons } from "../dummyData/dummyPostSatusIcon";
 import { ListItemWithIcon } from "../ListItemWithIcon/ListItemWithIcon";
-import { changeModal, ShowModal } from "../../redux/slice/status";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import dynamic from "next/dynamic";
-import { nanoid } from "@reduxjs/toolkit";
-import { LatestStory } from "../../type/Stories";
 const NoSSRComponent = dynamic(() => import("./Modal"), {
   ssr: false,
 });

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Colors, BackgroundStoris } from "../../dummyData/dummyColor";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setColor, setTextStyle } from "../../../redux/slice/story";
+import { Colors } from "../../dummyData/dummyColor";
 export const ChangeTextStyle = () => {
   const [backgroundColor, setBackgroundColor] = useState(1);
   const dispatch = useAppDispatch();

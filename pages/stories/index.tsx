@@ -1,12 +1,12 @@
-import { Navbar } from "../../component/Navbar/Menu";
-import { ListItemWithIcon } from "../../component/ListItemWithIcon/ListItemWithIcon";
-import { Divide } from "../../component/Divide/Divide";
-import { GetServerSideProps } from "next";
-import Story from "../../lib/mongoose/model/Stories";
-import { sortStory } from "../../utils/utils";
-import { LatestStory } from "../../type/Stories";
-import { StoryComp } from "../../component/Story/WatchStory/StoryComp";
 import { nanoid } from "@reduxjs/toolkit";
+import { GetServerSideProps } from "next";
+import { Divide } from "../../component/Divide/Divide";
+import { ListItemWithIcon } from "../../component/ListItemWithIcon/ListItemWithIcon";
+import { Navbar } from "../../component/Navbar/Menu";
+import { StoryComp } from "../../component/Story/WatchStory/StoryComp";
+import Story from "../../lib/mongoose/model/Stories";
+import { LatestStory } from "../../type/Stories";
+import { sortStory } from "../../utils/utils";
 const StoriesListPage = ({ latesStories }: { latesStories: LatestStory[] }) => {
   return (
     <div>

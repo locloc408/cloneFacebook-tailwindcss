@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  Color,
-  TextStyle,
-  TextInput,
-  ImageStory,
-} from "../../../redux/slice/story";
-import { useAppSelector } from "../../../redux/hooks";
 import TextareaAutosize from "react-textarea-autosize";
+import { useAppSelector } from "../../../redux/hooks";
+import { ImageStory, TextInput, TextStyle } from "../../../redux/slice/story";
 export const CreateStoryWithText = () => {
   const img = useAppSelector(ImageStory);
   const textStyle = useAppSelector(TextStyle);

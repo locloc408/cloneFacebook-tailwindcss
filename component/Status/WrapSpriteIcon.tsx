@@ -1,9 +1,8 @@
-import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { setshowInputZone } from "../../redux/slice/status";
 import { SpriteIcon } from "../SpriteIcon/SpriteIcon";
 import { Tooltip } from "../Tooltip/Tooltip";
-import { setshowInputZone } from "../../redux/slice/status";
-import { useAppDispatch } from "../../redux/hooks";
 
 export const WrapSpriteIcon = ({
   url,

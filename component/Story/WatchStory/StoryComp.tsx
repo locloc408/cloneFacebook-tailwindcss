@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { fecthData } from "../../../lib/axios/fetchClientData";
-import { UserType } from "../../../type/User";
-import { Avatar } from "../../Avatar/Avatar";
 import { useRouter } from "next/dist/client/router";
+import React from "react";
+import { fecthData } from "../../../lib/axios/fetchClientData";
 import { useAppDispatch } from "../../../redux/hooks";
 import { showStoryDetail } from "../../../redux/slice/Stories";
-import { sortStory } from "../../../utils/utils";
+import { UserType } from "../../../type/User";
+import { Avatar } from "../../Avatar/Avatar";
 export const StoryComp = ({
   img,
   user,

@@ -1,7 +1,7 @@
+import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import ConnectDB from "../../../../lib/mongoose/ConnectDB";
 import Comment from "../../../../lib/mongoose/model/Comment";
-import mongoose from "mongoose";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await ConnectDB();
   const { statusId } = req.query;

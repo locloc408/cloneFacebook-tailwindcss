@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { ListItemWithAvatatar } from "../ListItemWithAvatar/ListItemWithAvatar";
 import { nanoid } from "@reduxjs/toolkit";
-import { IconButton } from "../IconButton/IconButton";
+import React from "react";
 import { OnlineFriends } from "../dummyData/dummyFriends";
+import { IconButton } from "../IconButton/IconButton";
+import { ListItemWithAvatatar } from "../ListItemWithAvatar/ListItemWithAvatar";
 export const RightSideMenuFriends = () => {
   return (
     <div>

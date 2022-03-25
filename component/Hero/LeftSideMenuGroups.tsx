@@ -1,9 +1,8 @@
-import { ListItemWithAvatatar } from "../ListItemWithAvatar/ListItemWithAvatar";
-import { LeftSideMenuType } from "../../type/LeftSideMenuGroups";
 import { nanoid } from "@reduxjs/toolkit";
-import { memo, useCallback, useMemo, useState } from "react";
-import { ListItemWithIcon } from "../ListItemWithIcon/ListItemWithIcon";
+import { useCallback, useMemo, useState } from "react";
 import { LeftSideMenuGrs } from "../dummyData/dummyLeftSideGrs";
+import { ListItemWithAvatatar } from "../ListItemWithAvatar/ListItemWithAvatar";
+import { ListItemWithIcon } from "../ListItemWithIcon/ListItemWithIcon";
 export const LeftSideMenuGroups = () => {
   const [isExpand, setIsExpand] = useState(false);
   const [expand, setExpand] = useState(4);

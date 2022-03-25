@@ -1,11 +1,7 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { UserType } from "../../../../type/User";
-import { useAppSelector } from "../../../../redux/hooks";
-import { storyFriendIndex } from "../../../../redux/slice/Stories";
+import { nanoid } from "@reduxjs/toolkit";
+import React from "react";
 import { StoryType } from "../../../../type/Stories";
 import { StoryFriendDetail } from "./StoryFriendDetail";
-import { nanoid } from "@reduxjs/toolkit";
 export const StoryListFriends = ({
   AllStories,
 

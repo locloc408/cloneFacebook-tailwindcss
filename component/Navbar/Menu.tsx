@@ -1,11 +1,11 @@
-import { SearchBarMenu } from "./SearchBarMenu";
-import { Tab } from "../Tab/Tab";
-import { TabList } from "../dummyData/dummyTablistData";
-import { MenuFeatures } from "../dummyData/dummyMenuFeatures";
 import { memo, useState } from "react";
-import { MenuFeature } from "./MenuFeature";
 import { Avatar } from "../Avatar/Avatar";
+import { MenuFeatures } from "../dummyData/dummyMenuFeatures";
+import { TabList } from "../dummyData/dummyTablistData";
+import { Tab } from "../Tab/Tab";
 import { Tooltip } from "../Tooltip/Tooltip";
+import { MenuFeature } from "./MenuFeature";
+import { SearchBarMenu } from "./SearchBarMenu";
 const navbar = () => {
   const [tabId, setTabId] = useState(1);
   const handleTabClick = (tabId: number) => {

@@ -1,20 +1,20 @@
+import mongoose from "mongoose";
 import { GetServerSideProps } from "next";
-import { useState, useRef, useEffect, forwardRef, ForwardedRef } from "react";
-import Story from "../../lib/mongoose/model/Stories";
-import User from "../../lib/mongoose/model/User";
-import { StoryType, StoryContainer } from "../../type/Stories";
-import { IconButton } from "../../component/IconButton/IconButton";
-import { Divide } from "../../component/Divide/Divide";
-import { StoryListFriends } from "../../component/Story/WatchStory/StoryFriends/StoryListFriends";
-import { UserType } from "../../type/User";
 import { useRouter } from "next/dist/client/router";
+import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
+import { Divide } from "../../component/Divide/Divide";
 import { MenuFeatures } from "../../component/dummyData/dummyMenuFeatures";
+import { IconButton } from "../../component/IconButton/IconButton";
 import { MenuFeature } from "../../component/Navbar/MenuFeature";
-import { Tooltip } from "../../component/Tooltip/Tooltip";
 import { StoryDetail } from "../../component/Story/WatchStory/StoryDetail";
 import { StoryEmoji } from "../../component/Story/WatchStory/StoryEmoji";
+import { StoryListFriends } from "../../component/Story/WatchStory/StoryFriends/StoryListFriends";
 import { StoryResponse } from "../../component/Story/WatchStory/StoryResponse";
-import mongoose from "mongoose";
+import { Tooltip } from "../../component/Tooltip/Tooltip";
+import Story from "../../lib/mongoose/model/Stories";
+import User from "../../lib/mongoose/model/User";
+import { StoryContainer, StoryType } from "../../type/Stories";
+import { UserType } from "../../type/User";
 const StoryDetailPage = ({
   Friends,
   AllStories,

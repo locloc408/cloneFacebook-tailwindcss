@@ -1,9 +1,9 @@
+import React, { useEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
-import React, { useState, useRef, useEffect } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { ChangeTextStyle } from "./ChangeImageStyle";
 import { useAppSelector } from "../../../redux/hooks";
 import { Color, TextStyle } from "../../../redux/slice/story";
+import { ChangeTextStyle } from "./ChangeImageStyle";
 
 export const CreateStoryWithImage = ({
   files,
