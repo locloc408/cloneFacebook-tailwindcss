@@ -6,5 +6,6 @@ module.exports = {
       "mongodb+srv://locloc408:loc1792001@cluster0.mursv.mongodb.net/FacebookClone?retryWrites=true&w=majority",
     NEXT_PUBLIC_BASE_URI:
       "https://facebook-mini-nextjs-tailwindcss.vercel.app/api",
+    NEXT_PUBLIC_BASE: "https://facebook-mini-nextjs-tailwindcss.vercel.app",
   },
 };

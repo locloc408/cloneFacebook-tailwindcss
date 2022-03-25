@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/dist/client/router";
 import { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import { Divide } from "../../component/Divide/Divide";
@@ -240,7 +240,7 @@ export const getServerSideProps: GetServerSideProps = async (conetxt) => {
   const storyOfFriend = await Story.findOne({
     userId: new mongoose.Types.ObjectId(userId as string),
   }).populate("userId");
-
+  console.log(storyOfFriend);
   //get another friends then sort by date created
 
   const isNotWatch = await Story.find({
@@ -298,7 +298,6 @@ export const getServerSideProps: GetServerSideProps = async (conetxt) => {
   );
 
   const Friends = JSON.parse(JSON.stringify(friends));
-  console.log(storyOfFriend);
   return {
     props: {
       Friends,
@@ -306,3 +305,18 @@ export const getServerSideProps: GetServerSideProps = async (conetxt) => {
     },
   };
 };
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const users = await User.find();
+//   const paths = users.map((user) => {
+//     return {
+//       params: {
+//         userId: user._id,
+//       },
+//     };
+//   });
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };

@@ -25,7 +25,7 @@ export const StoryComp = ({
   return (
     <div
       onClick={async () => {
-        router.push(`/stories/${user._id}`);
+        router.push(process.env.NEXT_PUBLIC_BASE + `/stories/${user._id}`);
         dispatch(
           showStoryDetail({
             userId: user._id,
