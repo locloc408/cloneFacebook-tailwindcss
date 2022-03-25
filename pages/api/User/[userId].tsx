@@ -1,10 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "../../../lib/mongoose/ConnectDB";
 import User from "../../../lib/mongoose/model/User";
+import { cors, runMiddleware } from "../../../lib/cors";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await runMiddleware(req , res,cors)
   await connectDB();
   try {
     if (req.method === "POST") {

@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "../../../../lib/mongoose/ConnectDB";
 import Status from "../../../../lib/mongoose/model/Status";
 import { StatusResponseList } from "../../../../type/Status";
+import { cors, runMiddleware } from "../../../../lib/cors";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  await runMiddleware(req, res, cors);
   await connectDB();
   const { userId } = req.query;
 

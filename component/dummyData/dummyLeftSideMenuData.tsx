@@ -1,7 +1,7 @@
 export const LeftSideMenuData = [
   {
     title: "Lộc Nguyễn",
-    img: "http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png",
+    img: "./tom-and-jerry.png",
     link: {
       pathname: "/",
     },
@@ -9,7 +9,7 @@ export const LeftSideMenuData = [
   },
   {
     title: "Bạn Bè",
-    img: "https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png",
+    img: "./static/BanBe.png",
     link: {
       pathname: "/",
     },
@@ -17,7 +17,7 @@ export const LeftSideMenuData = [
   },
   {
     title: "Marketplace",
-    img: "https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/D2y-jJ2C_hO.png",
+    img: "./static/MarketPlace.png",
     link: {
       pathname: "/",
     },
@@ -25,7 +25,7 @@ export const LeftSideMenuData = [
   },
   {
     title: "Nhóm",
-    img: "https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/PrjLkDYpYbH.png",
+    img: "./static/Nhom.png",
     link: {
       pathname: "/",
     },
@@ -33,7 +33,7 @@ export const LeftSideMenuData = [
   },
   {
     title: "Kỷ Niệm",
-    img: "https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/he-BkogidIc.png",
+    img: "./static/KyNiem.png",
     link: {
       pathname: "/",
     },
@@ -41,7 +41,7 @@ export const LeftSideMenuData = [
   },
   {
     title: "Messenger",
-    img: "https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/4Y9Xi2D3hJv.png",
+    img: "./static/Messenger.png",
     link: {
       pathname: "/",
     },
@@ -49,7 +49,7 @@ export const LeftSideMenuData = [
   },
   {
     title: "Chiến dịch gây quỹ",
-    img: "https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/n2vd2VduYc1.png",
+    img: "./static/Sponsor.png",
     link: {
       pathname: "/",
     },

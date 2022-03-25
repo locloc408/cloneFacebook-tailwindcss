@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import ConnectDB from "../../../../lib/mongoose/ConnectDB";
 import Comment from "../../../../lib/mongoose/model/Comment";
+import { cors, runMiddleware } from "../../../../lib/cors";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  await runMiddleware(req, res, cors);
   await ConnectDB();
   const { commentId } = req.query;
   const { userId, reactionType } = req.body;

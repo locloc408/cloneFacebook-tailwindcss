@@ -45,7 +45,7 @@ const navbar = () => {
         <div className="hover:bg-gray-100 flex mr-2 cursor-pointer w-28 h-9 items-center justify-center rounded-full">
           <Avatar
             border=""
-            src="http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png"
+            src="./tom-and-jerry.png"
             active={false}
             size="h-7 w-7"
             rounded={"rounded-full"}

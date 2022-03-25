@@ -2,10 +2,12 @@ import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "../../../../lib/mongoose/ConnectDB";
 import Story from "../../../../lib/mongoose/model/Stories";
+import { cors, runMiddleware } from "../../../../lib/cors";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await runMiddleware(req,res,cors)
   await connectDB();
   const { userId, type } = req.query;
   console.log(req.body);

@@ -1,6 +1,6 @@
 export const PostIcon = [
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    url: "./static/Video.png",
     position: "0 -308px",
     bg: true,
     title: "Ảnh/Video",
@@ -9,7 +9,7 @@ export const PostIcon = [
     id: 1,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    url: "./static/Tag.png",
     position: "0 -283px",
     bg: true,
     title: "Gắn Thẻ Người Khác",
@@ -18,7 +18,7 @@ export const PostIcon = [
     id: 2,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    url: "./static/Emotion.png",
     position: "0 -258px",
     bg: true,
     title: "Cảm Xúc/Hoạt động",
@@ -27,7 +27,7 @@ export const PostIcon = [
     id: 3,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yE/r/HyeXO0sd7uk.png",
+    url: "./static/CheckIn.png",
     position: "0 -225px",
     bg: true,
     title: "Check-in",
@@ -36,7 +36,7 @@ export const PostIcon = [
     id: 4,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/lgxgxxU6HJr.png",
+    url: "./static/Activity.png",
     position: "0 -100px",
     bg: true,
     title: "Tổ Chức buổi H&Đ",
@@ -45,7 +45,7 @@ export const PostIcon = [
     id: 5,
   },
   {
-    url: "https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/CyIf5CnpsZd.png",
+    url: "./static/More.png",
     position: "0 -183px",
     bg: true,
     title: "Xem Thêm",
