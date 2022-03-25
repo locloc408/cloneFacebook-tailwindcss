@@ -1,7 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
 import { useAppDispatch } from "../../redux/hooks";
-import { setReplyComment } from "../../redux/slice/Comment";
 import { CommentRes } from "../../type/Comment";
 import { UserReaction } from "../../type/Status";
 import { Avatar } from "../Avatar/Avatar";
@@ -45,16 +44,7 @@ export const CommentItem: React.FC<CommentItemType> = ({ comment }) => {
   });
 
   const dispatch = useAppDispatch();
-  const handleOnClickAction = (id: number) => {
-    if (id === 2) {
-      console.log("click");
-      dispatch(
-        setReplyComment({
-          replyCommentId: comment?._id,
-        })
-      );
-    }
-  };
+  const handleOnClickAction = (id: number) => {};
   return (
     <div className="flex space-x-1 mb-2 ml-1">
       <div>
