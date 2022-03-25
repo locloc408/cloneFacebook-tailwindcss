@@ -5,7 +5,6 @@ import StatusReducer from "./slice/status";
 import StoriesReducer from "./slice/Stories";
 import ReactionReducer from "./slice/Reaction";
 import CommentReducer from "./slice/Comment";
-import NodeComment from "./slice/node";
 import {
   persistStore,
   persistReducer,
@@ -24,7 +23,6 @@ const reducers = combineReducers({
   StoriesReducer: StoriesReducer,
   ReactionReducer: ReactionReducer,
   CommentReducer,
-  NodeComment,
 });
 const persistConfig = {
   key: "root",
