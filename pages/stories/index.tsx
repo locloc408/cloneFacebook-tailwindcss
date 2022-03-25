@@ -7,6 +7,7 @@ import { StoryComp } from "../../component/Story/WatchStory/StoryComp";
 import Story from "../../lib/mongoose/model/Stories";
 import { LatestStory } from "../../type/Stories";
 import { sortStory } from "../../utils/utils";
+import connectDB from "../../lib/mongoose/ConnectDB";
 const StoriesListPage = ({ latesStories }: { latesStories: LatestStory[] }) => {
   return (
     <div>
@@ -135,6 +136,7 @@ const StoriesListPage = ({ latesStories }: { latesStories: LatestStory[] }) => {
 export default StoriesListPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  await connectDB();
   const stories = await Story.find().populate("userId");
   const Stories = JSON.parse(JSON.stringify(stories));
   const latesStories = sortStory(Stories);

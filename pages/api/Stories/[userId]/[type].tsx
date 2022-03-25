@@ -7,10 +7,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await runMiddleware(req,res,cors)
+  await runMiddleware(req, res, cors);
   await connectDB();
   const { userId, type } = req.query;
-  console.log(req.body);
   try {
     if (req.method === "POST") {
       if (type === "ADD-STORY") {

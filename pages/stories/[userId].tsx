@@ -15,6 +15,7 @@ import Story from "../../lib/mongoose/model/Stories";
 import User from "../../lib/mongoose/model/User";
 import { StoryContainer, StoryType } from "../../type/Stories";
 import { UserType } from "../../type/User";
+import connectDB from '../../lib/mongoose/ConnectDB'
 const StoryDetailPage = ({
   Friends,
   AllStories,
@@ -237,10 +238,12 @@ export default StoryDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async (conetxt) => {
   const { userId } = conetxt.query;
+  await connectDB()
   const storyOfFriend = await Story.findOne({
     userId: new mongoose.Types.ObjectId(userId as string),
   }).populate("userId");
-  console.log(storyOfFriend);
+
+
   //get another friends then sort by date created
 
   const isNotWatch = await Story.find({
@@ -305,18 +308,3 @@ export const getServerSideProps: GetServerSideProps = async (conetxt) => {
     },
   };
 };
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const users = await User.find();
-//   const paths = users.map((user) => {
-//     return {
-//       params: {
-//         userId: user._id,
-//       },
-//     };
-//   });
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
