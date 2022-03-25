@@ -29,7 +29,7 @@ export const PostStatus = () => {
           <Avatar
             border=""
             rounded={"rounded-full"}
-            src="http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png"
+            src="./tom-and-jerry.png"
             size="h-10 w-10"
             active={false}
             shadow={"shadow"}

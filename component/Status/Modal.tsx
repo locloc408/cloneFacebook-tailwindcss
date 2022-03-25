@@ -5,7 +5,9 @@ import React, { useRef, useState } from "react";
 import { fecthData } from "../../lib/axios/fetchClientData";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
-  changeModal, setStatusResponseItems, ShowInputZone
+  changeModal,
+  setStatusResponseItems,
+  ShowInputZone,
 } from "../../redux/slice/status";
 import { useClickOutSide, usePreviewImage } from "../../utils/utils";
 import { Avatar } from "../Avatar/Avatar";
@@ -117,7 +119,7 @@ const Modal = () => {
           <div className="p-4">
             <div className="flex items-center space-x-2 ">
               <Avatar
-                src="http://benative.edu.vn/wp-content/uploads/2019/01/tom-and-jerry.png"
+                src="./tom-and-jerry.png"
                 active={false}
                 rounded="rounded-full"
                 shadow=""
