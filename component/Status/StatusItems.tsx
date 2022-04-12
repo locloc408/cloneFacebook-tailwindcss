@@ -23,7 +23,6 @@ export const StatusItems = ({
   statusId,
   statusReactionRes,
 }: StatusItemsType) => {
-  const ref = useRef<HTMLInputElement | null>(null);
   const [isFocus, setOnFocus] = useState(false);
   const {
     EmojiFlag,

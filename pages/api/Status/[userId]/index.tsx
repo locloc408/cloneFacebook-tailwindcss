@@ -43,15 +43,14 @@ export default async function handler(
       const friendsId = user.friendsId;
       const friendsStatus = await Promise.all(
         friendsId.map((id: string) => {
-          const status = Status.findOne({
+          const status = Status.find({
             statusUser: new mongoose.Types.ObjectId(id),
           }).populate("statusUser");
 
           return status;
         })
       );
-      console.log(friendsStatus);
-      return res.status(200).json(friendsStatus);
+      return res.status(200).json(friendsStatus.flat(1));
     }
   } catch (error) {
     console.log(error);

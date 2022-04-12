@@ -33,11 +33,12 @@ const hero = () => {
   const { data: data } = useSWR("61b5cfe89f7f6d222bab9d67", getStatus);
   const { data: user } = useSWR("61b5cfe89f7f6d222bab9d67/user", getUser);
   const { data: latestStories } = useSWR("latestStory", getStories);
+  console.log(data, latestStories);
   useEffect(() => {
     if (data && latestStories) {
       setLoading(false);
     }
-  }, [data]);
+  }, [data, latestStories]);
   return loading === true ? (
     <div className="h-screen w-full flex justify-center items-center">
       <div

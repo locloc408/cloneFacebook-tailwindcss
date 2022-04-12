@@ -45,7 +45,7 @@ const statusList = ({
             >
               <StatusItems
                 statusReactionRes={
-                  status.status[status.status.length - 1].usersReaction
+                  status?.status[status?.status.length - 1].usersReaction
                 }
                 statusContent={
                   status?.status[status?.status.length - 1].textInput
